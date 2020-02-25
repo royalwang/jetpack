@@ -60,6 +60,11 @@ export const Ads = withModuleSettingsFormHelpers(
 				'wordads'
 			);
 			const wordads_custom_adstxt = this.props.getOptionValue( 'wordads_custom_adstxt', 'wordads' );
+			const wordads_ccpa_enabled = this.props.getOptionValue( 'wordads_ccpa_enabled', 'wordads' );
+			const wordads_ccpa_not_applicable = this.props.getOptionValue(
+				'wordads_ccpa_not_applicable',
+				'wordads'
+			);
 			const isSubDirSite = this.props.siteRawUrl.indexOf( '::' ) !== -1;
 			return (
 				<SettingsCard
@@ -240,6 +245,41 @@ export const Ads = withModuleSettingsFormHelpers(
 								/>
 							</FormFieldset>
 						) }
+					</SettingsGroup>
+					<SettingsGroup hasChild>
+						<FormLegend>Consent</FormLegend>
+						<p>Information here regarding options for consent</p>
+						<CompactFormToggle
+							checked={ wordads_ccpa_enabled }
+							disabled={
+								! isAdsActive ||
+								unavailableInDevMode ||
+								this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_enabled' ] )
+							}
+							onChange={ this.handleChange( 'wordads_ccpa_enabled' ) }
+						>
+							<span className="jp-form-toggle-explanation">
+								{ __( 'Enable California Consumer Privacy Act (CCPA)' ) }
+							</span>
+						</CompactFormToggle>
+						<FormFieldset>
+							<CompactFormToggle
+								checked={ wordads_ccpa_not_applicable }
+								disabled={
+									! isAdsActive ||
+									unavailableInDevMode ||
+									! wordads_ccpa_enabled ||
+									this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_not_applicable' ] )
+								}
+								onChange={ this.handleChange( 'wordads_ccpa_not_applicable' ) }
+							>
+								<span className="jp-form-toggle-explanation">
+									{ __(
+										'I attest this site does not require user consent because of exceptions granted in the California Consumer Privacy Act'
+									) }
+								</span>
+							</CompactFormToggle>
+						</FormFieldset>
 					</SettingsGroup>
 					{ ! unavailableInDevMode && isAdsActive && (
 						<Card

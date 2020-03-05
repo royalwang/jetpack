@@ -2122,6 +2122,8 @@ class Jetpack_Core_Json_Api_Endpoints {
 				'validate_callback' => __CLASS__ . '::validate_verification_service',
 				'jp_group'          => 'verification-tools',
 			),
+
+			// WordAds.
 			'enable_header_ad' => array(
 				'description'        => esc_html__( 'Display an ad unit at the top of each page.', 'jetpack' ),
 				'type'               => 'boolean',
@@ -2129,8 +2131,6 @@ class Jetpack_Core_Json_Api_Endpoints {
 				'validate_callback'  => __CLASS__ . '::validate_boolean',
 				'jp_group'           => 'wordads',
 			),
-
-			// WordAds
 			'wordads_approved' => array(
 				'description'        => esc_html__( 'Is site approved for WordAds?', 'jetpack' ),
 				'type'               => 'boolean',
@@ -2193,6 +2193,20 @@ class Jetpack_Core_Json_Api_Endpoints {
 				'type'               => 'boolean',
 				'default'            => 0,
 				'validate_callback'  => __CLASS__ . '::validate_boolean',
+				'jp_group'           => 'wordads',
+			),
+			'wordads_ccpa_privacy_policy_url' => array(
+				'description'        => esc_html__( 'Privacy Policy URL', 'jetpack' ),
+				'type'               => 'string',
+				'default'            => '',
+				'validate_callback'  => __CLASS__ . '::validate_string',
+				'jp_group'           => 'wordads',
+			),
+			'wordads_ccpa_custom_notice_markup' => array(
+				'description'        => esc_html__( 'Custom Notice markup', 'jetpack' ),
+				'type'               => 'string',
+				'default'            => '',
+				'validate_callback'  => __CLASS__ . '::validate_string',
 				'jp_group'           => 'wordads',
 			),
 

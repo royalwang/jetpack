@@ -12,19 +12,21 @@ class WordAds_Params {
 	public function __construct() {
 		// WordAds setting => default
 		$settings = array(
-			'wordads_approved'            => false,
-			'wordads_active'              => false,
-			'wordads_house'               => true,
-			'wordads_unsafe'              => false,
-			'enable_header_ad'            => true,
-			'wordads_second_belowpost'    => true,
-			'wordads_display_front_page'  => true,
-			'wordads_display_post'        => true,
-			'wordads_display_page'        => true,
-			'wordads_display_archive'     => true,
-			'wordads_custom_adstxt'       => '',
-			'wordads_ccpa_enabled'        => false,
-			'wordads_ccpa_not_applicable' => false,
+			'wordads_approved'                  => false,
+			'wordads_active'                    => false,
+			'wordads_house'                     => true,
+			'wordads_unsafe'                    => false,
+			'enable_header_ad'                  => true,
+			'wordads_second_belowpost'          => true,
+			'wordads_display_front_page'        => true,
+			'wordads_display_post'              => true,
+			'wordads_display_page'              => true,
+			'wordads_display_archive'           => true,
+			'wordads_custom_adstxt'             => '',
+			'wordads_ccpa_enabled'              => false,
+			'wordads_ccpa_not_applicable'       => false,
+			'wordads_ccpa_privacy_policy_url'   => '',
+			'wordads_ccpa_custom_notice_markup' => '',
 		);
 
 		// grab settings, or set as default if it doesn't exist

@@ -17,6 +17,7 @@ import { withModuleSettingsFormHelpers } from 'components/module-settings/with-m
 import { ModuleToggle } from 'components/module-toggle';
 import SettingsCard from 'components/settings-card';
 import SettingsGroup from 'components/settings-group';
+import TextInput from '../components/text-input';
 
 export const Ads = withModuleSettingsFormHelpers(
 	class extends React.Component {
@@ -63,6 +64,14 @@ export const Ads = withModuleSettingsFormHelpers(
 			const wordads_ccpa_enabled = this.props.getOptionValue( 'wordads_ccpa_enabled', 'wordads' );
 			const wordads_ccpa_not_applicable = this.props.getOptionValue(
 				'wordads_ccpa_not_applicable',
+				'wordads'
+			);
+			const wordads_ccpa_privacy_policy_url = this.props.getOptionValue(
+				'wordads_ccpa_privacy_policy_url',
+				'wordads'
+			);
+			const wordads_ccpa_custom_notice_markup = this.props.getOptionValue(
+				'wordads_ccpa_custom_notice_markup',
 				'wordads'
 			);
 			const isSubDirSite = this.props.siteRawUrl.indexOf( '::' ) !== -1;
@@ -279,6 +288,36 @@ export const Ads = withModuleSettingsFormHelpers(
 									) }
 								</span>
 							</CompactFormToggle>
+						</FormFieldset>
+						<FormFieldset>
+							<FormLegend>Privacy Policy URL</FormLegend>
+							<p>What is this and why do we need it?</p>
+							<TextInput
+								name={ 'wordads_ccpa_privacy_policy_url' }
+								value={ wordads_ccpa_privacy_policy_url }
+								disabled={
+									! isAdsActive ||
+									unavailableInDevMode ||
+									! wordads_ccpa_enabled ||
+									this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_privacy_policy_url' ] )
+								}
+								onChange={ this.props.onOptionChange }
+							/>
+						</FormFieldset>
+						<FormFieldset>
+							<FormLegend>Custom Notice Markup</FormLegend>
+							<p>What is this and why do we need it?</p>
+							<Textarea
+								name="wordads_ccpa_custom_notice_markup"
+								value={ wordads_ccpa_custom_notice_markup }
+								disabled={
+									! isAdsActive ||
+									unavailableInDevMode ||
+									! wordads_ccpa_enabled ||
+									this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_custom_notice_markup' ] )
+								}
+								onChange={ this.props.onOptionChange }
+							/>
 						</FormFieldset>
 					</SettingsGroup>
 					{ ! unavailableInDevMode && isAdsActive && (

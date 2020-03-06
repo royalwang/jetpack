@@ -133,18 +133,20 @@ class WordAds_California_Privacy {
 								<br /><br /><strong>We never share information that identifies you personally, like your name or email address, as part of our advertising program.</strong>
 								<br /><br />If you’d prefer not to see ads that are personalized based on information from your visits to sites within the WordPress.com network, you can opt-out by toggling the setting below:
 							</p>
-							<div class="ccpa-setting">
-								<span class="ccpa-setting__toggle components-form-toggle">
-									<input class="components-form-toggle__input opt-out" type="checkbox" value="false" />
-									<span class="components-form-toggle__track"></span>
-									<span class="components-form-toggle__thumb"></span>
-									<svg class="components-form-toggle__on" width="2" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 6" role="img" aria-hidden="true" focusable="false"><path d="M0 0h2v6H0z"></path></svg>
-									<svg class="components-form-toggle__off" width="6" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6" role="img" aria-hidden="true" focusable="false"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>
-								</span>
-								<div class="ccpa-setting__header">Do Not Sell My Personal Information</div>
-							</div>
 							<div class="components-modal__footer">
-								<button class="components-button is-button is-primary">Close</button>
+								<div class="ccpa-setting">
+									<span class="ccpa-setting__toggle components-form-toggle">
+										<input class="components-form-toggle__input opt-out" type="checkbox" value="false" />
+										<span class="components-form-toggle__track"></span>
+										<span class="components-form-toggle__thumb"></span>
+										<svg class="components-form-toggle__on" width="2" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 6" role="img" aria-hidden="true" focusable="false"><path d="M0 0h2v6H0z"></path></svg>
+										<svg class="components-form-toggle__off" width="6" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6" role="img" aria-hidden="true" focusable="false"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>
+									</span>
+									<div class="ccpa-setting__header">Do Not Sell My Personal Information</div>
+								</div>
+								<div class="components-modal__footer-bottom">
+									<button class="components-button is-button is-primary">Close</button>
+								</div>
 							</div>
 						</div>
 					</div>

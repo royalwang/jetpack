@@ -1,9 +1,9 @@
 $z-index-max: 2147483647;
 
 body.admin-bar .cleanslate .components-modal__frame {
-  @media (max-width: 599px) {
-	top: 46px !important;
-  }
+	@media (max-width: 599px) {
+		top: 46px !important;
+	}
 }
 
 .cleanslate {
@@ -35,6 +35,7 @@ body.admin-bar .cleanslate .components-modal__frame {
 		box-shadow: 0 3px 30px rgba(25, 30, 35, 0.2) !important;
 		overflow: auto !important;
 	}
+
 	@media (min-width: 600px) {
 		.components-modal__frame {
 			top: 50% !important;
@@ -103,18 +104,22 @@ body.admin-bar .cleanslate .components-modal__frame {
 		box-sizing: border-box !important;
 		border-top: 1px solid #e2e4e7 !important;
 		padding: 0 16px !important;
-		display: flex !important;
-		flex-direction: row !important;
-		justify-content: flex-end !important;
 		background: #fff !important;
-		align-items: center !important;
-		height: 56px !important;
+		height: 110px !important;
 		position: -webkit-sticky !important;
 		position: sticky !important;
 		bottom: 0 !important;
 		z-index: 10 !important;
 		margin: 0 -16px !important;
 	}
+
+	.components-modal__footer-bottom {
+		display: flex !important;
+		flex-direction: row !important;
+		justify-content: flex-end !important;
+		align-items: center !important;
+	}
+
 	.components-button {
 		display: inline-flex !important;
 		text-decoration: none !important;
@@ -127,6 +132,7 @@ body.admin-bar .cleanslate .components-modal__frame {
 		/* Buttons that look like links, for a cross of good semantics with the visual */
 		/* Link buttons that are red to indicate destructive behavior. */
 	}
+
 	.components-icon-button {
 		display: flex !important;
 		align-items: center !important;
@@ -376,7 +382,7 @@ body.admin-bar .cleanslate .components-modal__frame {
 		vertical-align: top !important;
 	}
 
-	.components-button.is-primary:disabled,  .components-button.is-primary:disabled:active:enabled,  .components-button.is-primary[aria-disabled="true"],  .components-button.is-primary[aria-disabled="true"]:active:enabled {
+	.components-button.is-primary:disabled, .components-button.is-primary:disabled:active:enabled, .components-button.is-primary[aria-disabled="true"], .components-button.is-primary[aria-disabled="true"]:active:enabled {
 		color: rgb(102, 182, 214) !important;
 		background: rgb(0, 133, 186) !important;
 		border-color: rgb(0, 124, 173) !important;
@@ -385,7 +391,7 @@ body.admin-bar .cleanslate .components-modal__frame {
 		opacity: 1 !important;
 	}
 
-	.components-button.is-primary:disabled.is-button,  .components-button.is-primary:disabled.is-button:hover,  .components-button.is-primary:disabled:active:enabled,  .components-button.is-primary:disabled:active:enabled.is-button,  .components-button.is-primary:disabled:active:enabled.is-button:hover,  .components-button.is-primary:disabled:active:enabled:active:enabled, .components-button.is-primary[aria-disabled="true"].is-button, .components-button.is-primary[aria-disabled="true"].is-button:hover, .components-button.is-primary[aria-disabled="true"]:active:enabled, .components-button.is-primary[aria-disabled="true"]:active:enabled.is-button, .components-button.is-primary[aria-disabled="true"]:active:enabled.is-button:hover, .components-button.is-primary[aria-disabled="true"]:active:enabled:active:enabled {
+	.components-button.is-primary:disabled.is-button, .components-button.is-primary:disabled.is-button:hover, .components-button.is-primary:disabled:active:enabled, .components-button.is-primary:disabled:active:enabled.is-button, .components-button.is-primary:disabled:active:enabled.is-button:hover, .components-button.is-primary:disabled:active:enabled:active:enabled, .components-button.is-primary[aria-disabled="true"].is-button, .components-button.is-primary[aria-disabled="true"].is-button:hover, .components-button.is-primary[aria-disabled="true"]:active:enabled, .components-button.is-primary[aria-disabled="true"]:active:enabled.is-button, .components-button.is-primary[aria-disabled="true"]:active:enabled.is-button:hover, .components-button.is-primary[aria-disabled="true"]:active:enabled:active:enabled {
 		box-shadow: none !important;
 		text-shadow: none !important;
 	}
@@ -400,16 +406,17 @@ body.admin-bar .cleanslate .components-modal__frame {
 		font-size: 13px !important;
 		line-height: 20px !important;
 		color: #1a1a1a !important;
+		border-bottom: 1px solid #e2e4e7 !important;
 	}
 
 	.ccpa-setting {
-		padding: 16px 0 !important;
-		//border-bottom: 1px solid #E2E4E7 !important;
+		margin: 0 -16px 10px -16px !important;
+		padding: 16px !important;
+		border-bottom: 1px solid #e2e4e7 !important;
 	}
 
 	.ccpa-setting__header {
 		font-weight: bold !important;
-		margin-bottom: 8px !important;
 	}
 
 	.ccpa-setting__text {

@@ -11,21 +11,58 @@
  */
 class WordAds_California_Privacy {
 
-	/**
-	 * Gets the URL to a page where visitors can opt-out of data sales.
-	 *
-	 * @return string The URL of the opt-out page.
-	 */
-	public static function get_optout_link_url() {
-		return '#';
+	public static function init( $not_applicable = false ) {
+
+		if ( $not_applicable ) {
+			if ( ! $_COOKIE[ self::get_cookie_name() ] ) {
+				self::set_not_applicable_cookie();
+			}
+
+			return;
+		}
+
+		add_action( 'wp_footer', array( __CLASS__, 'output_initialization_script' ) );
+
+		// TODO: Move these to load on demand if the Do Not Sell link is clicked.
+		wp_enqueue_style(
+			'wordads_cleanslate',
+			WORDADS_URL . 'css/cleanslate.css',
+			array(),
+			'2020-03-01'
+		);
+		wp_enqueue_style(
+			'wordads_ccpa',
+			WORDADS_URL . 'css/wordads-ccpa.min.css',
+			array(),
+			'2020-03-01'
+		);
+
+		self::init_shortcode();
 	}
+
+	public static function init_ajax_actions() {
+		add_action( 'wp_ajax_privacy_optout', array( __CLASS__, 'handle_optout_request' ) );
+		add_action( 'wp_ajax_nopriv_privacy_optout', array( __CLASS__, 'handle_optout_request' ) );
+
+		add_action( 'wp_ajax_privacy_optout_markup', array( __CLASS__, 'handle_optout_markup' ) );
+		add_action( 'wp_ajax_nopriv_privacy_optout_markup', array( __CLASS__, 'handle_optout_markup' ) );
+	}
+
+	private static function init_shortcode() {
+		add_shortcode( 'do-not-sell-link', array( __CLASS__, 'do_not_sell_link_shortcode' ) );
+	}
+
+	public static function do_not_sell_link_shortcode( $attributes, $content ) {
+		return '<a href="#" class="ccpa-do-not-sell" style="display: none;">' . self::get_optout_link_text() . '</a>';
+	}
+
 
 	/**
 	 * Gets the text used to link to the opt-out page. By law must read 'Do Not Sell My Personal Information'.
 	 *
 	 * @return mixed|string|void The text of the opt-out link.
 	 */
-	public static function get_optout_link_text() {
+	private static function get_optout_link_text() {
 		return __( 'Do Not Sell My Personal Information' );
 	}
 
@@ -37,7 +74,7 @@ class WordAds_California_Privacy {
 	 *
 	 * @return string The value to be stored in the opt-out cookie.
 	 */
-	public static function build_iab_privacy_string( $optout ) {
+	private static function build_iab_privacy_string( $optout ) {
 		$values = array(
 			'1', // Specification version
 			'Y', // Explicit notice to opt-out provided
@@ -54,7 +91,7 @@ class WordAds_California_Privacy {
 	 *
 	 * @return string The name of the opt-out cookie.
 	 */
-	public static function get_cookie_name() {
+	private static function get_cookie_name() {
 		return 'usprivacy';
 	}
 
@@ -63,7 +100,7 @@ class WordAds_California_Privacy {
 	 *
 	 * @return string The value to store in the opt-out cookie.
 	 */
-	public static function get_optout_cookie_string() {
+	private static function get_optout_cookie_string() {
 		return self::build_iab_privacy_string( true );
 	}
 
@@ -72,8 +109,12 @@ class WordAds_California_Privacy {
 	 *
 	 * @return string The value to store in the opt-in cookie.
 	 */
-	public static function get_optin_cookie_string() {
+	private static function get_optin_cookie_string() {
 		return self::build_iab_privacy_string( false );
+	}
+
+	private static function get_not_applicable_cookie_string() {
+		return '1---';
 	}
 
 	/**
@@ -81,9 +122,10 @@ class WordAds_California_Privacy {
 	 *
 	 * @return bool True if the cookie could be set.
 	 */
-	public static function set_optout_cookie() {
-		$cookie_domain = '.wordpress.com' === substr( $_SERVER['HTTP_HOST'], - strlen( '.wordpress.com' ) ) ? '.wordpress.com' : '.' . $_SERVER['HTTP_HOST'];
-		return setcookie( WordAds_California_Privacy::get_cookie_name(), WordAds_California_Privacy::get_optout_cookie_string(), time() + YEAR_IN_SECONDS, '/', $cookie_domain );
+	private static function set_optout_cookie() {
+		$cookie_domain = '.wordpress.com' === substr( $_SERVER['HTTP_HOST'], -strlen( '.wordpress.com' ) ) ? '.wordpress.com' : '.' . $_SERVER['HTTP_HOST'];
+
+		return setcookie( self::get_cookie_name(), self::get_optout_cookie_string(), time() + YEAR_IN_SECONDS, '/', $cookie_domain );
 	}
 
 	/**
@@ -91,16 +133,23 @@ class WordAds_California_Privacy {
 	 *
 	 * @return bool True if the cookie could be set.
 	 */
-	public static function set_optin_cookie() {
-		$cookie_domain = '.wordpress.com' === substr( $_SERVER['HTTP_HOST'], - strlen( '.wordpress.com' ) ) ? '.wordpress.com' : '.' . $_SERVER['HTTP_HOST'];
-		return setcookie( WordAds_California_Privacy::get_cookie_name(), WordAds_California_Privacy::get_optin_cookie_string(), time() + YEAR_IN_SECONDS, '/', $cookie_domain );
+	private static function set_optin_cookie() {
+		$cookie_domain = '.wordpress.com' === substr( $_SERVER['HTTP_HOST'], -strlen( '.wordpress.com' ) ) ? '.wordpress.com' : '.' . $_SERVER['HTTP_HOST'];
+
+		return setcookie( self::get_cookie_name(), self::get_optin_cookie_string(), time() + YEAR_IN_SECONDS, '/', $cookie_domain );
+	}
+
+	private static function set_not_applicable_cookie() {
+		$cookie_domain = '.wordpress.com' === substr( $_SERVER['HTTP_HOST'], -strlen( '.wordpress.com' ) ) ? '.wordpress.com' : '.' . $_SERVER['HTTP_HOST'];
+
+		return setcookie( self::get_cookie_name(), self::get_not_applicable_cookie_string(), time() + WEEK_IN_SECONDS, '/', $cookie_domain );
 	}
 
 	public static function handle_optout_request() {
 		header( 'Content-Type: text/plain; charset=utf-8' );
 
 		$optout = 'true' === $_POST['optout'];
-		$optout ? WordAds_California_Privacy::set_optout_cookie() : WordAds_California_Privacy::set_optin_cookie();
+		$optout ? self::set_optout_cookie() : self::set_optin_cookie();
 
 		wp_send_json_success( $optout );
 	}
@@ -157,22 +206,6 @@ HTML;
 		wp_die();
 	}
 
-	public static function init_ajax_actions() {
-		add_action( 'wp_ajax_privacy_optout', array( 'WordAds_California_Privacy', 'handle_optout_request' ) );
-		add_action( 'wp_ajax_nopriv_privacy_optout', array( 'WordAds_California_Privacy', 'handle_optout_request' ) );
-
-		add_action( 'wp_ajax_privacy_optout_markup', array( 'WordAds_California_Privacy', 'handle_optout_markup' ) );
-		add_action( 'wp_ajax_nopriv_privacy_optout_markup', array( 'WordAds_California_Privacy', 'handle_optout_markup' ) );
-	}
-
-	public static function init_shortcode() {
-		add_shortcode( 'do-not-sell-link', array( 'WordAds_California_Privacy', 'do_not_sell_link_shortcode' ) );
-	}
-
-	public static function do_not_sell_link_shortcode( $attributes, $content ) {
-		return '<a href="#" class="ccpa-do-not-sell" style="display: none;">' . self::get_optout_link_text() . '</a>';
-	}
-
 	/**
 	 * Outputs Javascript to handle California IP detection, and setting of default cookies.
 	 * Will call `window.doNotSellCallback()` after initialization to allow pages to dynamically add a 'Do Not Sell My Personal Information' link
@@ -183,7 +216,7 @@ HTML;
 		?>
 		<!-- CCPA [start] -->
 		<script type="text/javascript">
-			( function () {
+			( function() {
 
 				// Minimal Mozilla Cookie library
 				// https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie/Simple_document.cookie_framework
@@ -223,7 +256,7 @@ HTML;
 								wrapper.outerHTML = this.response;
 
 								var optOut = document.querySelector( '#ccpa-modal .opt-out' );
-								optOut.addEventListener( 'click', function(e) {
+								optOut.addEventListener( 'click', function( e ) {
 
 									var post = new XMLHttpRequest();
 									post.open( 'POST', '/wp-admin/admin-ajax.php', true );
@@ -247,7 +280,7 @@ HTML;
 										}
 									};
 									post.send( 'action=privacy_optout&optout=' + e.target.checked );
-								});
+								} );
 
 								// need to init status based on cookie
 								var usprivacyCookie = cookieLib.getItem( 'usprivacy' );
@@ -262,11 +295,11 @@ HTML;
 								}
 
 								var buttons = document.querySelectorAll( '#ccpa-modal .components-button' );
-								Array.prototype.forEach.call( buttons, function(el) {
+								Array.prototype.forEach.call( buttons, function( el ) {
 									el.addEventListener( 'click', function() {
 										destroyModal();
-									});
-								});
+									} );
+								} );
 							}
 						}
 					};
@@ -276,13 +309,13 @@ HTML;
 
 				var doNotSellCallback = function() {
 
-					var dnsLink = document.querySelector('.ccpa-do-not-sell');
+					var dnsLink = document.querySelector( '.ccpa-do-not-sell' );
 
 					if ( dnsLink ) {
-						dnsLink.addEventListener( 'click', function(e) {
+						dnsLink.addEventListener( 'click', function( e ) {
 							e.preventDefault();
 							injectModal();
-						});
+						} );
 
 						dnsLink.style.display = '';
 					}
@@ -305,25 +338,26 @@ HTML;
 					if ( null === ccpaCookie ) {
 
 						var request = new XMLHttpRequest();
-						request.open('GET', 'https://public-api.wordpress.com/geo/', true);
+						request.open( 'GET', 'https://public-api.wordpress.com/geo/', true );
 
-						request.onreadystatechange = function () {
+						request.onreadystatechange = function() {
 							if ( 4 === this.readyState ) {
-								if (200 === this.status) {
+								if ( 200 === this.status ) {
 
-									var data = JSON.parse(this.response);
+									var data = JSON.parse( this.response );
 									var ccpa_applies = data['region'] && data['region'].toLowerCase() === 'california';
 
-									setCcpaAppliesCookie(ccpa_applies);
+									setCcpaAppliesCookie( ccpa_applies );
 
-									if (ccpa_applies) {
-										if (doNotSellCallback()) {
+									if ( ccpa_applies ) {
+										if ( doNotSellCallback() ) {
 											setDefaultOptInCookie();
 										}
 									}
 								} else {
-									setCcpaAppliesCookie(true);
-									if (doNotSellCallback()) {
+									setCcpaAppliesCookie( true );
+
+									if ( doNotSellCallback() ) {
 										setDefaultOptInCookie();
 									}
 								}

@@ -166,22 +166,7 @@ class WordAds {
 
 		// Include California Privacy Act related features if enabled.
 		if ( $this->params->options['wordads_ccpa_enabled'] ) {
-			add_action( 'wp_footer', array( 'WordAds_California_Privacy', 'output_initialization_script' ) );
-
-			// TODO: Move these to load on demand if the Do Not Sell link is clicked.
-			wp_enqueue_style(
-				'wordads_cleanslate',
-				WORDADS_URL . 'css/cleanslate.css',
-				array(),
-				'2020-03-01'
-			);
-			wp_enqueue_style(
-				'wordads_ccpa',
-				WORDADS_URL . 'css/wordads-ccpa.min.css',
-				array(),
-				'2020-03-01'
-			);
-			WordAds_California_Privacy::init_shortcode();
+			WordAds_California_Privacy::init( $this->params->options['wordads_ccpa_not_applicable'] );
 		}
 
 		if ( '/ads.txt' === $_SERVER['REQUEST_URI'] ) {

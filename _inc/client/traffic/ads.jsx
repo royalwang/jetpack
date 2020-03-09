@@ -61,6 +61,10 @@ export const Ads = withModuleSettingsFormHelpers(
 				'wordads'
 			);
 			const wordads_custom_adstxt = this.props.getOptionValue( 'wordads_custom_adstxt', 'wordads' );
+			const wordads_custom_adstxt_enabled = this.props.getOptionValue(
+				'wordads_custom_adstxt_enabled',
+				'wordads'
+			);
 			const wordads_ccpa_enabled = this.props.getOptionValue( 'wordads_ccpa_enabled', 'wordads' );
 			const wordads_ccpa_not_applicable = this.props.getOptionValue(
 				'wordads_ccpa_not_applicable',
@@ -214,50 +218,76 @@ export const Ads = withModuleSettingsFormHelpers(
 									) }
 							</small>
 						</FormFieldset>
+					</SettingsGroup>
+					<SettingsGroup
+						hasChild
+						support={ {
+							text: __( 'Help Text' ), // @TODO update
+							link: 'https://jetpack.com/support/ads/',
+						} }
+					>
 						{ ! isSubDirSite && (
-							<FormFieldset>
-								<FormLegend>{ __( 'Custom ads.txt entries' ) }</FormLegend>
-								<p>
-									{ isAdsActive &&
-										__(
-											'Jetpack automatically generates a custom {{link1}}ads.txt{{/link1}} tailored for your site. ' +
-												'If you need to add additional entries for other networks please add them in the space below, one per line. ' +
-												'{{link2}}Check here for more details{{/link2}}.',
-											{
-												components: {
-													link1: <a href="/ads.txt" target="_blank" rel="noopener noreferrer" />,
-													link2: (
-														<a
-															href="https://jetpack.com/2018/11/09/how-jetpack-ads-members-can-increase-their-earnings-with-ads-txt/"
-															target="_blank"
-															rel="noopener noreferrer"
-														/>
-													),
-												},
-											}
-										) }
+							<div>
+								<CompactFormToggle
+									checked={ wordads_custom_adstxt_enabled }
+									onChange={ this.handleChange( 'wordads_custom_adstxt_enabled' ) }
+								>
+									<span className="jp-form-toggle-explanation">
+										{ __( 'Customize your ads.txt file' ) }
+									</span>
+								</CompactFormToggle>
+								{ wordads_custom_adstxt_enabled && (
+									<FormFieldset>
+										<FormLegend>{ __( 'Custom ads.txt entries' ) }</FormLegend>
+										<p>
+											{ isAdsActive &&
+												__(
+													'Jetpack automatically generates a custom {{link1}}ads.txt{{/link1}} tailored for your site. ' +
+														'If you need to add additional entries for other networks please add them in the space below, one per line. ' +
+														'{{link2}}Check here for more details{{/link2}}.',
+													{
+														components: {
+															link1: (
+																<a href="/ads.txt" target="_blank" rel="noopener noreferrer" />
+															),
+															link2: (
+																<a
+																	href="https://jetpack.com/2018/11/09/how-jetpack-ads-members-can-increase-their-earnings-with-ads-txt/"
+																	target="_blank"
+																	rel="noopener noreferrer"
+																/>
+															),
+														},
+													}
+												) }
 
-									{ ! isAdsActive &&
-										__(
-											'When ads are enabled, Jetpack automatically generates a custom ads.txt tailored for your site.'
-										) }
-								</p>
-								<Textarea
-									name="wordads_custom_adstxt"
-									value={ wordads_custom_adstxt }
-									disabled={
-										! isAdsActive ||
-										unavailableInDevMode ||
-										this.props.isSavingAnyOption( [ 'wordads', 'wordads_custom_adstxt' ] )
-									}
-									onChange={ this.props.onOptionChange }
-								/>
-							</FormFieldset>
+											{ ! isAdsActive &&
+												__(
+													'When ads are enabled, Jetpack automatically generates a custom ads.txt tailored for your site.'
+												) }
+										</p>
+										<Textarea
+											name="wordads_custom_adstxt"
+											value={ wordads_custom_adstxt }
+											disabled={
+												! isAdsActive ||
+												unavailableInDevMode ||
+												this.props.isSavingAnyOption( [ 'wordads', 'wordads_custom_adstxt' ] )
+											}
+											onChange={ this.props.onOptionChange }
+										/>
+									</FormFieldset>
+								) }
+							</div>
 						) }
 					</SettingsGroup>
-					<SettingsGroup hasChild>
-						<FormLegend>Consent</FormLegend>
-						<p>Information here regarding options for consent</p>
+					<SettingsGroup
+						hasChild
+						support={ {
+							text: __( 'Help Text' ), // @TODO update
+							link: 'https://jetpack.com/support/ads/',
+						} }
+					>
 						<CompactFormToggle
 							checked={ wordads_ccpa_enabled }
 							disabled={
@@ -268,57 +298,67 @@ export const Ads = withModuleSettingsFormHelpers(
 							onChange={ this.handleChange( 'wordads_ccpa_enabled' ) }
 						>
 							<span className="jp-form-toggle-explanation">
-								{ __( 'Enable California Consumer Privacy Act (CCPA)' ) }
+								{ __( 'Enable targeted advertising in California (CCPA)' ) }
 							</span>
 						</CompactFormToggle>
-						<FormFieldset>
-							<CompactFormToggle
-								checked={ wordads_ccpa_not_applicable }
-								disabled={
-									! isAdsActive ||
-									unavailableInDevMode ||
-									! wordads_ccpa_enabled ||
-									this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_not_applicable' ] )
-								}
-								onChange={ this.handleChange( 'wordads_ccpa_not_applicable' ) }
-							>
-								<span className="jp-form-toggle-explanation">
-									{ __(
-										'I attest this site does not require user consent because of exceptions granted in the California Consumer Privacy Act'
-									) }
-								</span>
-							</CompactFormToggle>
-						</FormFieldset>
-						<FormFieldset>
-							<FormLegend>Privacy Policy URL</FormLegend>
-							<p>What is this and why do we need it?</p>
-							<TextInput
-								name={ 'wordads_ccpa_privacy_policy_url' }
-								value={ wordads_ccpa_privacy_policy_url }
-								disabled={
-									! isAdsActive ||
-									unavailableInDevMode ||
-									! wordads_ccpa_enabled ||
-									this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_privacy_policy_url' ] )
-								}
-								onChange={ this.props.onOptionChange }
-							/>
-						</FormFieldset>
-						<FormFieldset>
-							<FormLegend>Custom Notice Markup</FormLegend>
-							<p>What is this and why do we need it?</p>
-							<Textarea
-								name="wordads_ccpa_custom_notice_markup"
-								value={ wordads_ccpa_custom_notice_markup }
-								disabled={
-									! isAdsActive ||
-									unavailableInDevMode ||
-									! wordads_ccpa_enabled ||
-									this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_custom_notice_markup' ] )
-								}
-								onChange={ this.props.onOptionChange }
-							/>
-						</FormFieldset>
+						{ wordads_ccpa_enabled && (
+							<div>
+								<FormFieldset>
+									<CompactFormToggle
+										checked={ wordads_ccpa_not_applicable }
+										disabled={
+											! isAdsActive ||
+											unavailableInDevMode ||
+											! wordads_ccpa_enabled ||
+											this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_not_applicable' ] )
+										}
+										onChange={ this.handleChange( 'wordads_ccpa_not_applicable' ) }
+									>
+										<span className="jp-form-toggle-explanation">
+											{ __(
+												'I attest this site does not require user consent because of exceptions granted in the California Consumer Privacy Act'
+											) }
+										</span>
+									</CompactFormToggle>
+								</FormFieldset>
+								<FormFieldset>
+									<FormLegend>Privacy Policy URL</FormLegend>
+									<p>What is this and why do we need it?</p>
+									<TextInput
+										name={ 'wordads_ccpa_privacy_policy_url' }
+										value={ wordads_ccpa_privacy_policy_url }
+										disabled={
+											! isAdsActive ||
+											unavailableInDevMode ||
+											! wordads_ccpa_enabled ||
+											this.props.isSavingAnyOption( [
+												'wordads',
+												'wordads_ccpa_privacy_policy_url',
+											] )
+										}
+										onChange={ this.props.onOptionChange }
+									/>
+								</FormFieldset>
+								<FormFieldset>
+									<FormLegend>Custom Notice Markup</FormLegend>
+									<p>What is this and why do we need it?</p>
+									<Textarea
+										name="wordads_ccpa_custom_notice_markup"
+										value={ wordads_ccpa_custom_notice_markup }
+										disabled={
+											! isAdsActive ||
+											unavailableInDevMode ||
+											! wordads_ccpa_enabled ||
+											this.props.isSavingAnyOption( [
+												'wordads',
+												'wordads_ccpa_custom_notice_markup',
+											] )
+										}
+										onChange={ this.props.onOptionChange }
+									/>
+								</FormFieldset>
+							</div>
+						) }
 					</SettingsGroup>
 					{ ! unavailableInDevMode && isAdsActive && (
 						<Card

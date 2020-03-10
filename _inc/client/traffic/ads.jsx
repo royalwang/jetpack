@@ -320,6 +320,11 @@ export const Ads = withModuleSettingsFormHelpers(
 											'I attest this site does not require user consent because of exceptions granted in the California Consumer Privacy Act.'
 										) }
 									</span>
+									<small className="jp-form-setting-explanation">
+										{ __(
+											'This will disable CCPA consent & opt-out features and allow targeted advertising for all California traffic.'
+										) }
+									</small>
 								</CompactFormToggle>
 							</FormFieldset>
 						) }

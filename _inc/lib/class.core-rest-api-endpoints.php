@@ -2206,14 +2206,7 @@ class Jetpack_Core_Json_Api_Endpoints {
 				'description'        => esc_html__( 'Privacy Policy URL', 'jetpack' ),
 				'type'               => 'string',
 				'default'            => '',
-				'validate_callback'  => __CLASS__ . '::validate_string',
-				'jp_group'           => 'wordads',
-			),
-			'wordads_ccpa_custom_notice_markup' => array(
-				'description'        => esc_html__( 'Custom Notice markup', 'jetpack' ),
-				'type'               => 'string',
-				'default'            => '',
-				'validate_callback'  => __CLASS__ . '::validate_string',
+				'validate_callback' => __CLASS__ . '::validate_string', // @TODO need to add a check to ensure this is a valid url.
 				'jp_group'           => 'wordads',
 			),
 

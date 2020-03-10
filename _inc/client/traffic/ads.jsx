@@ -74,10 +74,6 @@ export const Ads = withModuleSettingsFormHelpers(
 				'wordads_ccpa_privacy_policy_url',
 				'wordads'
 			);
-			const wordads_ccpa_custom_notice_markup = this.props.getOptionValue(
-				'wordads_ccpa_custom_notice_markup',
-				'wordads'
-			);
 			const isSubDirSite = this.props.siteRawUrl.indexOf( '::' ) !== -1;
 			return (
 				<SettingsCard
@@ -269,31 +265,13 @@ export const Ads = withModuleSettingsFormHelpers(
 								<FormLegend>Privacy Policy URL</FormLegend>
 								<TextInput
 									name={ 'wordads_ccpa_privacy_policy_url' }
+									placeholder={ 'https://' }
 									value={ wordads_ccpa_privacy_policy_url }
 									disabled={
 										! isAdsActive ||
 										unavailableInDevMode ||
 										! wordads_ccpa_enabled ||
 										this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_privacy_policy_url' ] )
-									}
-									onChange={ this.props.onOptionChange }
-								/>
-								<span className="jp-form-setting-explanation">
-									{ __( 'What is this and why do we need it?' ) }
-								</span>
-
-								<FormLegend>Custom Notice Markup</FormLegend>
-								<Textarea
-									name="wordads_ccpa_custom_notice_markup"
-									value={ wordads_ccpa_custom_notice_markup }
-									disabled={
-										! isAdsActive ||
-										unavailableInDevMode ||
-										! wordads_ccpa_enabled ||
-										this.props.isSavingAnyOption( [
-											'wordads',
-											'wordads_ccpa_custom_notice_markup',
-										] )
 									}
 									onChange={ this.props.onOptionChange }
 								/>

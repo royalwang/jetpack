@@ -49,7 +49,7 @@ class WordAds_California_Privacy {
 	}
 
 	private static function init_shortcode() {
-		add_shortcode( 'do-not-sell-link', array( __CLASS__, 'do_not_sell_link_shortcode' ) );
+		add_shortcode( 'ccpa-do-not-sell-link', array( __CLASS__, 'do_not_sell_link_shortcode' ) );
 	}
 
 	public static function do_not_sell_link_shortcode( $attributes, $content ) {
@@ -63,7 +63,7 @@ class WordAds_California_Privacy {
 	 * @return mixed|string|void The text of the opt-out link.
 	 */
 	private static function get_optout_link_text() {
-		return __( 'Do Not Sell My Personal Information' );
+		return __( 'Do Not Sell My Personal Information', 'jetpack' );
 	}
 
 	/**
@@ -156,15 +156,15 @@ class WordAds_California_Privacy {
 
 	public static function handle_optout_markup() {
 		header( 'Content-Type: text/html; charset=utf-8' );
-
-		echo <<< HTML
+		$policy_url = get_option( 'wordads_ccpa_privacy_policy_url' );
+		?>
 			<div id="ccpa-modal" class="cleanslate">
 				<div class="components-modal__screen-overlay">
 					<div class="components-modal__frame">
 						<div class="components-modal__content ccpa-settings">
 							<div class="components-modal__header">
 								<div class="components-modal__header-heading-container">
-									<h1 class="components-modal__header-heading">California Privacy Settings</h1>
+									<h1 class="components-modal__header-heading"><?php esc_html_e( 'California Privacy Settings', 'jetpack' ); ?></h1>
 								</div>
 								<button type="button" aria-label="Close dialog" class="components-button components-icon-button">
 									<svg aria-hidden="true" role="img" focusable="false" class="dashicon dashicons-no-alt" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
@@ -173,14 +173,20 @@ class WordAds_California_Privacy {
 								</button>
 							</div>
 							<p class="ccpa-settings__intro-txt">
-								Our mission is to democratize publishing and commerce, and that means making our Services as accessible to as many people as possible. We show ads on some of our users’ sites as well as some of our own, and the revenue they generate lets us offer free access to some of our services so that money doesn’t become an obstacle to having a voice. Our ads program also allows our users to earn revenue to support and grow their own sites.  Our users may also choose to place ads on their site through our WordAds program, and we also show ads from our ads program on some of our own websites (e.g., longreads.com) and in emails.
-								<br /><br />We operate our ads program in partnership with third-party vendors who help us place ads on sites. Advertising cookies enable us and our partners to serve ads, to personalize those ads based on information like visits to our sites and other sites on the internet, and to understand how users engage with those ads. As part of the operation of our ads program we use cookies to collect certain information, and we provide the following categories of information to our third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address).
-								<br /><br /><strong>We never share information that identifies you personally, like your name or email address, as part of our advertising program.</strong>
-								<br /><br />If you’d prefer not to see ads that are personalized based on information from your visits to sites within the WordPress.com network, you can opt-out by toggling the setting below:
-								Our mission is to democratize publishing and commerce, and that means making our Services as accessible to as many people as possible. We show ads on some of our users’ sites as well as some of our own, and the revenue they generate lets us offer free access to some of our services so that money doesn’t become an obstacle to having a voice. Our ads program also allows our users to earn revenue to support and grow their own sites.  Our users may also choose to place ads on their site through our WordAds program, and we also show ads from our ads program on some of our own websites (e.g., longreads.com) and in emails.
-								<br /><br />We operate our ads program in partnership with third-party vendors who help us place ads on sites. Advertising cookies enable us and our partners to serve ads, to personalize those ads based on information like visits to our sites and other sites on the internet, and to understand how users engage with those ads. As part of the operation of our ads program we use cookies to collect certain information, and we provide the following categories of information to our third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address).
-								<br /><br /><strong>We never share information that identifies you personally, like your name or email address, as part of our advertising program.</strong>
-								<br /><br />If you’d prefer not to see ads that are personalized based on information from your visits to sites within the WordPress.com network, you can opt-out by toggling the setting below:
+								<?php esc_html_e( 'We operate our ads program in partnership with third-party vendors who help us place ads on sites. Advertising cookies enable us and our partners to serve ads, to personalize those ads based on information like visits to our sites and other sites on the internet, and to understand how users engage with those ads. As part of the operation of our ads program we use cookies to collect certain information, and we provide the following categories of information to our third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address).', 'jetpack' ); ?>
+								<br /><br />
+								<strong><?php esc_html_e( 'We never share information that identifies you personally, like your name or email address, as part of our advertising program.', 'jetpack' ); ?></strong>
+								<?php
+								if ( $policy_url ) {
+									printf(
+										'<br /><br /><strong><a href="%s">%s</a></strong>',
+										esc_url( $policy_url ),
+										esc_html_e( 'Privacy Policy', 'jetpack' )
+									);
+								}
+								?>
+								<br /><br />
+								<?php esc_html_e( 'If you’d prefer not to see ads that are personalized based on information from your visits to this site, you can opt-out by toggling the setting below:', 'jetpack' ); ?>
 							</p>
 							<div class="components-modal__footer">
 								<div class="ccpa-setting">
@@ -191,17 +197,17 @@ class WordAds_California_Privacy {
 										<svg class="components-form-toggle__on" width="2" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 6" role="img" aria-hidden="true" focusable="false"><path d="M0 0h2v6H0z"></path></svg>
 										<svg class="components-form-toggle__off" width="6" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6" role="img" aria-hidden="true" focusable="false"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>
 									</span>
-									<div class="ccpa-setting__header">Do Not Sell My Personal Information</div>
+									<div class="ccpa-setting__header"><?php esc_html_e( 'Do Not Sell My Personal Information', 'jetpack' ); ?></div>
 								</div>
 								<div class="components-modal__footer-bottom">
-									<button class="components-button is-button is-primary">Close</button>
+									<button class="components-button is-button is-primary"><?php esc_html_e( 'Close', 'jetpack' ); ?></button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-HTML;
+		<?php
 
 		wp_die();
 	}
@@ -326,6 +332,7 @@ HTML;
 				// Initialization.
 				document.addEventListener( 'DOMContentLoaded', function() {
 
+					// CCPA consent value storage.
 					var usprivacyCookie = cookieLib.getItem( 'usprivacy' );
 
 					if ( null !== usprivacyCookie ) {
@@ -333,6 +340,7 @@ HTML;
 						return;
 					}
 
+					// Cache for geo location.
 					var ccpaCookie = cookieLib.getItem( 'ccpa_applies' );
 
 					if ( null === ccpaCookie ) {

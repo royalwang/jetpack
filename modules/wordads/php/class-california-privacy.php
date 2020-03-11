@@ -23,20 +23,6 @@ class WordAds_California_Privacy {
 
 		add_action( 'wp_footer', array( __CLASS__, 'output_initialization_script' ) );
 
-		// TODO: Move these to load on demand if the Do Not Sell link is clicked.
-		wp_enqueue_style(
-			'wordads_cleanslate',
-			WORDADS_URL . 'css/cleanslate.css',
-			array(),
-			'2020-03-01'
-		);
-		wp_enqueue_style(
-			'wordads_ccpa',
-			WORDADS_URL . 'css/wordads-ccpa.min.css',
-			array(),
-			'2020-03-01'
-		);
-
 		self::init_shortcode();
 	}
 
@@ -326,6 +312,21 @@ class WordAds_California_Privacy {
 					if ( dnsLink ) {
 						dnsLink.addEventListener( 'click', function( e ) {
 							e.preventDefault();
+
+							// Load cleanslate.css
+							var cleanslate = document.createElement('link');
+							cleanslate.rel = 'stylesheet';
+							cleanslate.type = 'text/css';
+							cleanslate.href = '<?php echo esc_url( WORDADS_URL ); ?>' + 'css/cleanslate.css';
+							document.getElementsByTagName('HEAD')[0].appendChild(cleanslate);
+
+							// Load wordads-ccpa.min.css
+							var ccpaCSS = document.createElement('link');
+							ccpaCSS.rel = 'stylesheet';
+							ccpaCSS.type = 'text/css';
+							ccpaCSS.href = '<?php echo esc_url( WORDADS_URL ); ?>' + 'css/wordads-ccpa.min.css';
+							document.getElementsByTagName('HEAD')[0].appendChild(ccpaCSS);
+
 							injectModal();
 						} );
 

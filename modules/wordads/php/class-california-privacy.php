@@ -164,7 +164,7 @@ class WordAds_California_Privacy {
 						<div class="components-modal__content ccpa-settings">
 							<div class="components-modal__header">
 								<div class="components-modal__header-heading-container">
-									<h1 class="components-modal__header-heading"><?php esc_html_e( 'California Privacy Settings', 'jetpack' ); ?></h1>
+									<h1 class="components-modal__header-heading"><?php esc_html_e( 'Do Not Sell My Personal Information', 'jetpack' ); ?></h1>
 								</div>
 								<button type="button" aria-label="Close dialog" class="components-button components-icon-button">
 									<svg aria-hidden="true" role="img" focusable="false" class="dashicon dashicons-no-alt" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
@@ -173,7 +173,9 @@ class WordAds_California_Privacy {
 								</button>
 							</div>
 							<p class="ccpa-settings__intro-txt">
-								<?php esc_html_e( 'We operate our ads program in partnership with third-party vendors who help us place ads on sites. Advertising cookies enable us and our partners to serve ads, to personalize those ads based on information like visits to our sites and other sites on the internet, and to understand how users engage with those ads. As part of the operation of our ads program we use cookies to collect certain information, and we provide the following categories of information to our third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address).', 'jetpack' ); ?>
+								<?php esc_html_e( 'If you are a California resident, you have the right to opt out of the "sale" of your "personal information" under the California Consumer Privacy Act ("CCPA")', 'jetpack' ); ?>
+								<br /><br />
+								<?php esc_html_e( 'We operate our ads program in partnership with third-party vendors who help us place ads on our site. Advertising cookies enable us and our partners to serve ads, to personalize those ads based on information like visits to our site and other sites on the internet, and to understand how users engage with those ads. As part of the operation of our ads program we use cookies to collect certain information, and we provide the following categories of information to our third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address). This type of sharing with our partners may be considered a "sale" of personal information under the CCPA.', 'jetpack' ); ?>
 								<br /><br />
 								<strong><?php esc_html_e( 'We never share information that identifies you personally, like your name or email address, as part of our advertising program.', 'jetpack' ); ?></strong>
 								<?php
@@ -186,7 +188,11 @@ class WordAds_California_Privacy {
 								}
 								?>
 								<br /><br />
-								<?php esc_html_e( 'If you’d prefer not to see ads that are personalized based on information from your visits to this site, you can opt-out by toggling the setting below:', 'jetpack' ); ?>
+								<?php esc_html_e( 'If you’d prefer not to see ads that are personalized based on information from your visits to our site, you can opt-out by toggling the "Do Not Sell My Personal Information" switch below to the ON position', 'jetpack' ); ?>
+								<br /><br />
+								<?php esc_html_e( 'This opt-out is managed through cookies, so if you delete cookies, your browser is set to delete cookies automatically after a certain length of time, or if you visit our site with a different browser, you’ll need to make this selection again.', 'jetpack' ); ?>
+								<br /><br />
+								<?php esc_html_e( 'After you opt-out you may still see ads, including personalized ones, on our site and other sites — they just won’t be personalized based on information from your visits to our site.', 'jetpack' ); ?>
 							</p>
 							<div class="components-modal__footer">
 								<div class="ccpa-setting">

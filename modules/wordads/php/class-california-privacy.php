@@ -164,15 +164,6 @@ class WordAds_California_Privacy {
 								<?php esc_html_e( 'We operate our ads program in partnership with third-party vendors who help us place ads on our site. Advertising cookies enable us and our partners to serve ads, to personalize those ads based on information like visits to our site and other sites on the internet, and to understand how users engage with those ads. As part of the operation of our ads program we use cookies to collect certain information, and we provide the following categories of information to our third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address). This type of sharing with our partners may be considered a "sale" of personal information under the CCPA.', 'jetpack' ); ?>
 								<br /><br />
 								<strong><?php esc_html_e( 'We never share information that identifies you personally, like your name or email address, as part of our advertising program.', 'jetpack' ); ?></strong>
-								<?php
-								if ( $policy_url ) {
-									printf(
-										'<br /><br /><strong><a href="%s">%s</a></strong>',
-										esc_url( $policy_url ),
-										esc_html_e( 'Privacy Policy', 'jetpack' )
-									);
-								}
-								?>
 								<br /><br />
 								<?php esc_html_e( 'If you’d prefer not to see ads that are personalized based on information from your visits to our site, you can opt-out by toggling the "Do Not Sell My Personal Information" switch below to the ON position', 'jetpack' ); ?>
 								<br /><br />
@@ -193,6 +184,15 @@ class WordAds_California_Privacy {
 								</div>
 								<div class="components-modal__footer-bottom">
 									<button class="components-button is-button is-primary"><?php esc_html_e( 'Close', 'jetpack' ); ?></button>
+									<?php
+									if ( $policy_url ) {
+										printf(
+											'<a href="%s" class="ccpa-privacy">%s</a>',
+											esc_url( $policy_url ),
+											esc_html__( 'View Privacy Policy', 'jetpack' )
+										);
+									}
+									?>
 								</div>
 							</div>
 						</div>

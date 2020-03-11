@@ -219,7 +219,7 @@ export const Ads = withModuleSettingsFormHelpers(
 						hasChild
 						support={ {
 							text: __(
-								'This feature will add a consent banner for site visitors in California, as well as a global opt-out for targeted advertising.'
+								'Enables targeted advertising in California using an opt-out link in compliance with the California Consumer Privacy Act (CCPA).'
 							),
 							link: 'https://jetpack.com/support/ads/',
 						} }
@@ -258,11 +258,32 @@ export const Ads = withModuleSettingsFormHelpers(
 										) }
 									</small>
 								</p>
+								<p>
+									<FormLegend>{ __( 'Do Not Sell Link' ) }</FormLegend>
+									{ __(
+										'CCPA requires that you place a "Do Not Sell My Personal Information" link on every page of your site where targeted advertising will appear. {{br/}}You can use CCPA Consent Block, {{widgetLink}}CCPA Consent Widget{{/widgetLink}}, or the {{code}}[ccpa-do-not-sell-link]{{/code}} shortcode to automatically place this link on your site.',
+										{
+											components: {
+												br: <br />,
+												code: <code />,
+												widgetLink: (
+													<a
+														className="jp-module-settings__external-link"
+														href="customize.php?autofocus[panel]=widgets"
+													/>
+												),
+											},
+										}
+									) }
+									<span className="jp-form-setting-explanation">
+										{ __( 'Failure to add this link will result in non-compliance with CCPA.' ) }
+									</span>
+								</p>
 							</FormFieldset>
 						) }
 						{ wordads_ccpa_enabled && (
 							<FormFieldset>
-								<FormLegend>Privacy Policy URL</FormLegend>
+								<FormLegend>{ __( 'Privacy Policy URL' ) }</FormLegend>
 								<TextInput
 									name={ 'wordads_ccpa_privacy_policy_url' }
 									placeholder={ 'https://' }
@@ -276,7 +297,9 @@ export const Ads = withModuleSettingsFormHelpers(
 									onChange={ this.props.onOptionChange }
 								/>
 								<span className="jp-form-setting-explanation">
-									{ __( 'What is this and why do we need it?' ) }
+									{ __(
+										'Adds a link to your privacy policy in the CCPA disclosures (not required).'
+									) }
 								</span>
 							</FormFieldset>
 						) }

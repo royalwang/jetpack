@@ -143,6 +143,34 @@ class WordAds_California_Privacy {
 	public static function handle_optout_markup() {
 		header( 'Content-Type: text/html; charset=utf-8' );
 		$policy_url = get_option( 'wordads_ccpa_privacy_policy_url' );
+
+		$default_disclosure = sprintf(
+			'<p>%s</p>
+			<p>%s</p>
+			<p><strong>%s</strong></p>
+			<p>%s</p>
+			<p>%s</p>
+			<p>%s</p>',
+			esc_html__( 'If you are a California resident, you have the right to opt out of the "sale" of your "personal information" under the California Consumer Privacy Act ("CCPA")', 'jetpack' ),
+			esc_html__( 'We operate our ads program in partnership with third-party vendors who help us place ads on our site. Advertising cookies enable us and our partners to serve ads, to personalize those ads based on information like visits to our site and other sites on the internet, and to understand how users engage with those ads. As part of the operation of our ads program we use cookies to collect certain information, and we provide the following categories of information to our third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address). This type of sharing with our partners may be considered a "sale" of personal information under the CCPA.', 'jetpack' ),
+			esc_html__( 'We never share information that identifies you personally, like your name or email address, as part of our advertising program.', 'jetpack' ),
+			esc_html__( 'If you’d prefer not to see ads that are personalized based on information from your visits to our site, you can opt-out by toggling the "Do Not Sell My Personal Information" switch below to the ON position', 'jetpack' ),
+			esc_html__( 'This opt-out is managed through cookies, so if you delete cookies, your browser is set to delete cookies automatically after a certain length of time, or if you visit our site with a different browser, you’ll need to make this selection again.', 'jetpack' ),
+			esc_html__( 'After you opt-out you may still see ads, including personalized ones, on our site and other sites — they just won’t be personalized based on information from your visits to our site.', 'jetpack' )
+		);
+
+		/**
+		 * Filter on the default CCPA disclosure text.
+		 *
+		 * @see https://jetpack.com/support/ads/
+		 *
+		 * @module wordads
+		 *
+		 * @since 8.4.0
+		 *
+		 * @param string Default CCPA disclosure for WordAds.
+		 */
+		$disclosure = apply_filters( 'wordads_ccpa_disclosure', $default_disclosure );
 		?>
 			<div id="ccpa-modal" class="cleanslate">
 				<div class="components-modal__screen-overlay">
@@ -158,19 +186,7 @@ class WordAds_California_Privacy {
 									</svg>
 								</button>
 							</div>
-							<p class="ccpa-settings__intro-txt">
-								<?php esc_html_e( 'If you are a California resident, you have the right to opt out of the "sale" of your "personal information" under the California Consumer Privacy Act ("CCPA")', 'jetpack' ); ?>
-								<br /><br />
-								<?php esc_html_e( 'We operate our ads program in partnership with third-party vendors who help us place ads on our site. Advertising cookies enable us and our partners to serve ads, to personalize those ads based on information like visits to our site and other sites on the internet, and to understand how users engage with those ads. As part of the operation of our ads program we use cookies to collect certain information, and we provide the following categories of information to our third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address). This type of sharing with our partners may be considered a "sale" of personal information under the CCPA.', 'jetpack' ); ?>
-								<br /><br />
-								<strong><?php esc_html_e( 'We never share information that identifies you personally, like your name or email address, as part of our advertising program.', 'jetpack' ); ?></strong>
-								<br /><br />
-								<?php esc_html_e( 'If you’d prefer not to see ads that are personalized based on information from your visits to our site, you can opt-out by toggling the "Do Not Sell My Personal Information" switch below to the ON position', 'jetpack' ); ?>
-								<br /><br />
-								<?php esc_html_e( 'This opt-out is managed through cookies, so if you delete cookies, your browser is set to delete cookies automatically after a certain length of time, or if you visit our site with a different browser, you’ll need to make this selection again.', 'jetpack' ); ?>
-								<br /><br />
-								<?php esc_html_e( 'After you opt-out you may still see ads, including personalized ones, on our site and other sites — they just won’t be personalized based on information from your visits to our site.', 'jetpack' ); ?>
-							</p>
+							<div class="ccpa-settings__intro-txt"><?php echo wp_kses( $disclosure, wp_kses_allowed_html( 'post' ) ); ?></div>
 							<div class="components-modal__footer">
 								<div class="ccpa-setting">
 									<span class="ccpa-setting__toggle components-form-toggle">

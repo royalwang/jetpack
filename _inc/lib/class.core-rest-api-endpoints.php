@@ -2206,7 +2206,8 @@ class Jetpack_Core_Json_Api_Endpoints {
 				'description'        => esc_html__( 'Privacy Policy URL', 'jetpack' ),
 				'type'               => 'string',
 				'default'            => '',
-				'validate_callback' => __CLASS__ . '::validate_string', // @TODO need to add a check to ensure this is a valid url.
+				'validate_callback' => __CLASS__ . '::validate_string',
+				'sanitize_callback' => 'sanitize_text_field',
 				'jp_group'           => 'wordads',
 			),
 

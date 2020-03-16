@@ -1,5 +1,7 @@
 <?php
 
+use Automattic\Jetpack\Assets;
+
 /**
  * Class WordAds_California_Privacy
  *
@@ -21,9 +23,35 @@ class WordAds_California_Privacy {
 			return;
 		}
 
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'initialization_script' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
 		self::init_shortcode();
+	}
+
+	/**
+	 * Enqueue required CCPA JavaScript on the frontend.
+	 */
+	public static function enqueue_scripts() {
+		wp_enqueue_script(
+			'wordads_ccpa',
+			Assets::get_file_url_for_environment(
+				'_inc/build/wordads/js/wordads-ccpa.min.js',
+				'modules/wordads/js/wordads-ccpa.js'
+			),
+			array(),
+			'1.0.0',
+			true
+		);
+
+		wp_localize_script(
+			'wordads_ccpa',
+			'ccpaSettings',
+			array(
+				'defaultOptinCookieString' => esc_js( self::get_optin_cookie_string() ),
+				'cleanslateUrl'            => esc_url( WORDADS_URL ) . 'css/cleanslate.css',
+				'ccpaCSSUrl'               => esc_url( WORDADS_URL ) . 'css/wordads-ccpa.min.css',
+			)
+		);
 	}
 
 	public static function init_ajax_actions() {
@@ -218,14 +246,5 @@ class WordAds_California_Privacy {
 		<?php
 
 		wp_die();
-	}
-
-	/**
-	 * Outputs Javascript to handle California IP detection, and setting of default cookies.
-	 * Will call `window.doNotSellCallback()` after initialization to allow pages to dynamically add a 'Do Not Sell My Personal Information' link
-	 * to a location of their choosing (usually in the footer).
-	 */
-	public static function initialization_script() {
-		wp_enqueue_script( 'ccpa-link', plugins_url( '/ccpa-link.min.js', dirname( __FILE__ ) ), array(), '1.0', false );
 	}
 }

@@ -90,6 +90,7 @@ function onBuild( done, err, stats ) {
 		'videopress',
 		'comment-likes',
 		'lazy-images',
+		'wordads',
 	];
 
 	// Source any JS for whitelisted modules, which will minimize us shipping much

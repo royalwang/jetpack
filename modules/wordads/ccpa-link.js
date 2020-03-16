@@ -75,12 +75,13 @@ var destroyModal = function() {
 
 var injectModal = function() {
 	destroyModal();
-
+	injectLoadingMessage();
 	var request = new XMLHttpRequest();
 	request.open( 'GET', '/wp-admin/admin-ajax.php?action=privacy_optout_markup', true );
 	request.onreadystatechange = function() {
 		if ( 4 === this.readyState ) {
 			if ( 200 === this.status ) {
+				document.getElementById("ccpa-loading").remove();
 				var wrapper = document.createElement( 'div' );
 				document.body.insertBefore( wrapper, document.body.firstElementChild );
 				wrapper.outerHTML = this.response;
@@ -136,7 +137,15 @@ var injectModal = function() {
 
 	request.send();
 };
-
+var injectLoadingMessage = function() {
+	var wrapper = document.createElement( 'div' );
+	document.body.insertBefore( wrapper, document.body.firstElementChild );
+	wrapper.outerHTML = '<div id="ccpa-loading" class="cleanslate ccpa__loading-wrapper">' +
+		'<div class="ccpa__loading-overlay">' +
+		'<span class="ccpa__loading-message">Please Wait...</span>' +
+		'</div>' +
+		'</div>';
+};
 var doNotSellCallback = function() {
 	var dnsLink = document.querySelector( '.ccpa-do-not-sell' );
 

@@ -97,7 +97,7 @@
 		injectLoadingMessage();
 
 		var request = new XMLHttpRequest();
-		request.open( 'GET', '/wp-admin/admin-ajax.php?action=privacy_optout_markup', true );
+		request.open( 'GET', '/wp-admin/admin-ajax.php?action=privacy_optout_markup&security='+ccpaSettings.ajaxNonce, true );
 		request.onreadystatechange = function() {
 			if ( 4 === this.readyState ) {
 				if ( 200 === this.status ) {
@@ -130,7 +130,7 @@
 								}
 							}
 						};
-						post.send( 'action=privacy_optout&optout=' + e.target.checked );
+						post.send( 'action=privacy_optout&optout=' + e.target.checked + '&security='+ccpaSettings.ajaxNonce );
 					} );
 
 					// need to init status based on cookie

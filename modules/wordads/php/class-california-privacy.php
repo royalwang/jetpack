@@ -49,8 +49,9 @@ class WordAds_California_Privacy {
 			array(
 				'defaultOptinCookieString' => esc_js( self::get_optin_cookie_string() ),
 				'cleanslateUrl'            => esc_url( WORDADS_URL ) . 'css/cleanslate.css',
-				'ccpaCSSUrl'               => esc_url( WORDADS_URL ) . 'css/wordads-ccpa.min.css',
-				'ajaxNonce'                => wp_create_nonce( 'ccpa_nonce' )
+				'ccpaCssUrl'               => esc_url( WORDADS_URL ) . 'css/wordads-ccpa.min.css',
+				'ajaxUrl'                  => admin_url( 'admin-ajax.php' ),
+				'ajaxNonce'                => wp_create_nonce( 'ccpa_optout' ),
 			)
 		);
 	}
@@ -161,7 +162,7 @@ class WordAds_California_Privacy {
 	}
 
 	public static function handle_optout_request() {
-		check_ajax_referer('ccpa_nonce','security');
+		check_ajax_referer( 'ccpa_optout', 'security' );
 		header( 'Content-Type: text/plain; charset=utf-8' );
 
 		$optout = 'true' === $_POST['optout'];
@@ -171,7 +172,6 @@ class WordAds_California_Privacy {
 	}
 
 	public static function handle_optout_markup() {
-	    check_ajax_referer('ccpa_nonce','security');
 		header( 'Content-Type: text/html; charset=utf-8' );
 		$policy_url = get_option( 'wordads_ccpa_privacy_policy_url' );
 

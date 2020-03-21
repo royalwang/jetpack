@@ -76,7 +76,8 @@
 	var injectLoadingMessage = function() {
 		var wrapper = document.createElement( 'div' );
 		document.body.insertBefore( wrapper, document.body.firstElementChild );
-		wrapper.outerHTML = '<div id="ccpa-loading" class="cleanslate ccpa__loading-wrapper">' +
+		wrapper.outerHTML =
+			'<div id="ccpa-loading" class="cleanslate ccpa__loading-wrapper">' +
 			'<div class="ccpa__loading-overlay">' +
 			'<span class="ccpa__loading-message">Please Wait...</span>' +
 			'</div>' +
@@ -97,11 +98,11 @@
 		injectLoadingMessage();
 
 		var request = new XMLHttpRequest();
-		request.open( 'GET', '/wp-admin/admin-ajax.php?action=privacy_optout_markup&security='+ccpaSettings.ajaxNonce, true );
+		request.open( 'GET', ccpaSettings.ajaxUrl + '?action=privacy_optout_markup', true );
 		request.onreadystatechange = function() {
 			if ( 4 === this.readyState ) {
 				if ( 200 === this.status ) {
-					document.getElementById("ccpa-loading").remove();
+					document.getElementById( 'ccpa-loading' ).remove();
 					var wrapper = document.createElement( 'div' );
 					document.body.insertBefore( wrapper, document.body.firstElementChild );
 					wrapper.outerHTML = this.response;
@@ -109,7 +110,7 @@
 					var optOut = document.querySelector( '#ccpa-modal .opt-out' );
 					optOut.addEventListener( 'click', function( e ) {
 						var post = new XMLHttpRequest();
-						post.open( 'POST', '/wp-admin/admin-ajax.php', true );
+						post.open( 'POST', ccpaSettings.ajaxUrl, true );
 						post.setRequestHeader(
 							'Content-Type',
 							'application/x-www-form-urlencoded; charset=UTF-8'
@@ -130,7 +131,12 @@
 								}
 							}
 						};
-						post.send( 'action=privacy_optout&optout=' + e.target.checked + '&security='+ccpaSettings.ajaxNonce );
+						post.send(
+							'action=privacy_optout&optout=' +
+								e.target.checked +
+								'&security=' +
+								ccpaSettings.ajaxNonce
+						);
 					} );
 
 					// need to init status based on cookie
@@ -173,11 +179,11 @@
 				document.getElementsByTagName( 'HEAD' )[ 0 ].appendChild( cleanslate );
 
 				// Load wordads-ccpa.min.css
-				var ccpaCSS = document.createElement( 'link' );
-				ccpaCSS.rel = 'stylesheet';
-				ccpaCSS.type = 'text/css';
-				ccpaCSS.href = ccpaSettings.ccpaCSSUrl;
-				document.getElementsByTagName( 'HEAD' )[ 0 ].appendChild( ccpaCSS );
+				var ccpaCss = document.createElement( 'link' );
+				ccpaCss.rel = 'stylesheet';
+				ccpaCss.type = 'text/css';
+				ccpaCss.href = ccpaSettings.ccpaCssUrl;
+				document.getElementsByTagName( 'HEAD' )[ 0 ].appendChild( ccpaCss );
 
 				injectModal();
 			} );

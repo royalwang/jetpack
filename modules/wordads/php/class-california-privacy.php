@@ -205,7 +205,7 @@ class WordAds_California_Privacy {
 		?>
 			<div id="ccpa-modal" class="cleanslate">
 				<div class="components-modal__screen-overlay">
-                    <div tabindex="0"></div>
+					<div tabindex="0"></div>
 					<div role="dialog" aria-labelledby="dialog_label" aria-modal="true" class="components-modal__frame">
 						<div class="components-modal__content ccpa-settings">
 							<div class="components-modal__header">
@@ -221,19 +221,16 @@ class WordAds_California_Privacy {
 							<div class="ccpa-settings__intro-txt"><?php echo wp_kses( $disclosure, wp_kses_allowed_html( 'post' ) ); ?></div>
 							<div class="components-modal__footer">
 								<div role="form" class="ccpa-setting">
-                                    <label>
-                                        <span class="ccpa-setting__header"><?php esc_html_e( 'Do Not Sell My Personal Information', 'jetpack' ); ?></span>
-                                       <span class="ccpa-setting__toggle components-form-toggle">
-										    <input id="ccpa-opt-out" class="components-form-toggle__input opt-out" type="checkbox" value="false" autofocusq/>
-										    <span class="components-form-toggle__track"></span>
-										    <span class="components-form-toggle__thumb"></span>
-										    <svg class="components-form-toggle__on" width="2" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 6" role="img" aria-hidden="true" focusable="false"><path d="M0 0h2v6H0z"></path></svg>
-										    <svg class="components-form-toggle__off" width="6" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6" role="img" aria-hidden="true" focusable="false"><path
-                                                    d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>
-									    </span>
-
-                                    </label>
-
+									<label>
+										<span class="ccpa-setting__header"><?php esc_html_e( 'Do Not Sell My Personal Information', 'jetpack' ); ?></span>
+										<span class="ccpa-setting__toggle components-form-toggle">
+											<input id="ccpa-opt-out" class="components-form-toggle__input opt-out" type="checkbox" value="false" autofocus />
+											<span class="components-form-toggle__track"></span>
+											<span class="components-form-toggle__thumb"></span>
+											<svg class="components-form-toggle__on" width="2" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 6" role="img" aria-hidden="true" focusable="false"><path d="M0 0h2v6H0z"></path></svg>
+											<svg class="components-form-toggle__off" width="6" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6" role="img" aria-hidden="true" focusable="false"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>
+										</span>
+									</label>
 								</div>
 								<div class="components-modal__footer-bottom">
 									<button class="components-button is-button is-primary"><?php esc_html_e( 'Close', 'jetpack' ); ?></button>

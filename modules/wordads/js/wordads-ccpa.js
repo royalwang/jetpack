@@ -106,6 +106,7 @@
 					var wrapper = document.createElement( 'div' );
 					document.body.insertBefore( wrapper, document.body.firstElementChild );
 					wrapper.outerHTML = this.response;
+					document.getElementById('ccpa-opt-out').focus();
 
 					var optOut = document.querySelector( '#ccpa-modal .opt-out' );
 					optOut.addEventListener( 'click', function( e ) {

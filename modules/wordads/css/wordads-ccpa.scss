@@ -175,10 +175,12 @@ body.admin-bar .cleanslate .components-modal__frame {
 		cursor: pointer !important;
 	}
 
-	.components-icon-button:not(:disabled):not([aria-disabled="true"]):not(.is-default):hover {
-		background-color: #fff !important;
-		color: #191e23 !important;
-		box-shadow: inset 0 0 0 1px #e2e4e7, inset 0 0 0 2px #fff, 0 1px 1px rgba(25, 30, 35, 0.2) !important;
+	.components-icon-button:not(:disabled):not([aria-disabled="true"]):not(.is-default) {
+		&:hover, &:focus {
+			background-color: #fff !important;
+			color: #191e23 !important;
+			box-shadow: inset 0 0 0 1px #e2e4e7, inset 0 0 0 2px #fff, 0 1px 1px rgba(25, 30, 35, 0.2) !important;
+		}
 	}
 
 	.components-icon-button:not(:disabled):not([aria-disabled="true"]):not(.is-default):active {

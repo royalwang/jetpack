@@ -185,7 +185,7 @@ class WordAds_California_Privacy {
 			esc_html__( 'If you are a California resident, you have the right to opt out of the "sale" of your "personal information" under the California Consumer Privacy Act ("CCPA")', 'jetpack' ),
 			esc_html__( 'This site operates an ads program in partnership with third-party vendors who help place ads. Advertising cookies enable these ads partners to serve ads, to personalize those ads based on information like visits to this site and other sites on the internet, and to understand how users engage with those ads. Cookies collect certain information as part of the ads program, and we provide the following categories of information to third-party advertising partners: online identifiers and internet or other network or device activity (such as unique identifiers, cookie information, and IP address), and geolocation data (approximate location information from your IP address). This type of sharing with ads partners may be considered a "sale" of personal information under the CCPA.', 'jetpack' ),
 			esc_html__( 'We never share information that identifies you personally, like your name or email address, as part of the advertising program.', 'jetpack' ),
-			esc_html__( 'If you’d prefer not to see ads that are personalized based on information from your visits to this site, you can opt-out by toggling the "Do Not Sell My Personal Information" switch below to the ON position.', 'jetpack' ),
+			esc_html__( 'If you’d prefer not to see ads that are personalized based on information from your visits to this site, you can opt-out by toggling the "Do Not Sell My Personal Information" switch below to the On position.', 'jetpack' ),
 			esc_html__( 'This opt-out is managed through cookies, so if you delete cookies, your browser is set to delete cookies automatically after a certain length of time, or if you visit this site with a different browser, you’ll need to make this selection again.', 'jetpack' ),
 			esc_html__( 'After you opt-out you may still see ads, including personalized ones, on this site and other sites — they just won’t be personalized based on information from your visits to this site.', 'jetpack' )
 		);
@@ -230,6 +230,8 @@ class WordAds_California_Privacy {
 											<svg class="components-form-toggle__on" width="2" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 6" role="img" aria-hidden="true" focusable="false"><path d="M0 0h2v6H0z"></path></svg>
 											<svg class="components-form-toggle__off" width="6" height="6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6" role="img" aria-hidden="true" focusable="false"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>
 										</span>
+										<span class="ccpa-setting__toggle-text ccpa-setting__toggle-text-off"><?php esc_html_e( 'Off', 'jetpack' ); ?></span>
+										<span class="ccpa-setting__toggle-text ccpa-setting__toggle-text-on"><?php esc_html_e( 'On', 'jetpack' ); ?></span>
 									</label>
 								</div>
 								<div class="components-modal__footer-bottom">

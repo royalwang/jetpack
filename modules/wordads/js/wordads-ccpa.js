@@ -1,7 +1,5 @@
 /**
- * Outputs Javascript to handle California IP detection, and setting of default cookies.
- * Will call `window.doNotSellCallback()` after initialization to allow pages to dynamically add a 'Do Not Sell My Personal Information' link
- * to a location of their choosing (usually in the footer).
+ * Outputs Javascript to handle California IP detection, consent modal, and setting of default cookies.
  */
 ( function() {
 	/* global ccpaSettings */
@@ -106,7 +104,7 @@
 					var wrapper = document.createElement( 'div' );
 					document.body.insertBefore( wrapper, document.body.firstElementChild );
 					wrapper.outerHTML = this.response;
-					document.getElementById('ccpa-opt-out').focus();
+					document.getElementById( 'ccpa-opt-out' ).focus();
 
 					var optOut = document.querySelector( '#ccpa-modal .opt-out' );
 					optOut.addEventListener( 'click', function( e ) {
@@ -125,8 +123,10 @@
 										// Note: Cooke is set in HTTP response from POST, so only need to update the toggle switch state.
 										if ( result.data ) {
 											e.target.parentNode.classList.add( 'is-checked' );
+											e.target.parentNode.parentNode.classList.add( 'is-checked' );
 										} else {
 											e.target.parentNode.classList.remove( 'is-checked' );
+											e.target.parentNode.parentNode.classList.remove( 'is-checked' );
 										}
 									}
 								}
@@ -150,6 +150,7 @@
 
 					if ( optout ) {
 						toggle.parentNode.classList.add( 'is-checked' );
+						toggle.parentNode.parentNode.classList.add( 'is-checked' );
 					}
 
 					var buttons = document.querySelectorAll( '#ccpa-modal .components-button' );

@@ -439,6 +439,25 @@ body.admin-bar .cleanslate .components-modal__frame {
 		float: right !important;
 	}
 
+	.ccpa-setting__toggle-text {
+		float: right !important;
+		margin-right: 8px !important;
+		margin-top: -2px !important;
+		display: none !important;
+	}
+
+	.ccpa-setting__toggle-text-off {
+		display: inline-block !important;
+	}
+
+	.is-checked > .ccpa-setting__toggle-text-off {
+		display: none !important;
+	}
+
+	.is-checked > .ccpa-setting__toggle-text-on {
+		display: inline-block !important;
+	}
+
 	.ccpa-privacy, .ccpa-privacy:visited {
 		color: rgb(0, 133, 186) !important;
 		text-decoration: none !important;

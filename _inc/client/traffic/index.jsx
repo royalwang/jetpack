@@ -22,7 +22,7 @@ import Shortlinks from './shortlinks';
 import { RelatedPosts } from './related-posts';
 import { VerificationServices } from './verification-services';
 import Sitemaps from './sitemaps';
-import { getLastPostUrl } from 'state/initial-state';
+import { getLastPostUrl, isAtomicSite } from 'state/initial-state';
 
 export class Traffic extends React.Component {
 	static displayName = 'TrafficSettings';
@@ -80,6 +80,7 @@ export class Traffic extends React.Component {
 				{ foundAds && (
 					<Ads
 						{ ...commonProps }
+						isAtomicSite={ this.props.isAtomicSite }
 						configureUrl={ 'https://wordpress.com/stats/ads/day/' + this.props.siteRawUrl }
 					/>
 				) }
@@ -131,5 +132,6 @@ export default connect( state => {
 		isSiteConnected: isSiteConnected( state ),
 		lastPostUrl: getLastPostUrl( state ),
 		getModuleOverride: module_name => getModuleOverride( state, module_name ),
+		isAtomicSite: isAtomicSite( state ),
 	};
 } )( Traffic );

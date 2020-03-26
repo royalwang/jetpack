@@ -219,9 +219,11 @@ export const Ads = withModuleSettingsFormHelpers(
 						hasChild
 						support={ {
 							text: __(
-								'Enables targeted advertising in California using an opt-out link in compliance with the California Consumer Privacy Act (CCPA).'
+								'Enables a targeted advertising opt-out link for California consumers, as required by the California Consumer Privacy Act (CCPA).'
 							),
-							link: 'https://jetpack.com/support/ads/',
+							link: this.props.isAtomicSite
+								? 'https://wordpress.com/support/your-wordpress-com-site-and-the-ccpa/'
+								: 'https://jetpack.com/support/ads/',
 						} }
 					>
 						<CompactFormToggle
@@ -234,7 +236,7 @@ export const Ads = withModuleSettingsFormHelpers(
 							onChange={ this.handleChange( 'wordads_ccpa_enabled' ) }
 						>
 							<span className="jp-form-toggle-explanation">
-								{ __( 'Enable targeted advertising in California (CCPA)' ) }
+								{ __( 'Enable targeted advertising to California site visitors (CCPA)' ) }
 							</span>
 						</CompactFormToggle>
 						{ wordads_ccpa_enabled && (
@@ -242,13 +244,17 @@ export const Ads = withModuleSettingsFormHelpers(
 								<p>
 									<small className="jp-form-setting-explanation">
 										{ __(
-											'For more information about the California Consumer Privacy Act (CCPA) {{br/}}and how it pertains to your site, please consult our guide to {{link}}WordAds CCPA Compliance{{/link}}.',
+											'For more information about the California Consumer Privacy Act (CCPA) {{br/}}and how it pertains to your site, please consult our {{link}}CCPA guide for site owners{{/link}}.',
 											{
 												components: {
 													br: <br />,
 													link: (
 														<a
-															href="https://wordads.co/ccpa"
+															href={
+																this.props.isAtomicSite
+																	? 'https://wordpress.com/support/your-wordpress-com-site-and-the-ccpa/'
+																	: 'https://jetpack.com/support/ads/'
+															}
 															target="_blank"
 															rel="noopener noreferrer"
 														/>
@@ -298,7 +304,7 @@ export const Ads = withModuleSettingsFormHelpers(
 								/>
 								<span className="jp-form-setting-explanation">
 									{ __(
-										'Adds a link to your privacy policy in the CCPA disclosures (not required).'
+										'Adds a link to your privacy policy to the bottom of the CCPA notice popup (optional).'
 									) }
 								</span>
 							</FormFieldset>

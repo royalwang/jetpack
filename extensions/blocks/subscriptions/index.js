@@ -45,29 +45,45 @@ export const settings = {
 			type: 'boolean',
 			default: false,
 		},
-
-		// Submit button attributes
 		submitButtonText: {
 			type: 'string',
 			default: __( 'Subscribe', 'jetpack' ),
 		},
-		backgroundColor: {
+		emailFieldBackgroundColor: {
+			type: 'string',
+		},
+		customEmailFieldBackgroundColor: {
+			type: 'string',
+		},
+		emailFieldGradient: {
+			type: 'string',
+		},
+		customEmailFieldGradient: {
+			type: 'string',
+		},
+		buttonBackgroundColor: {
+			type: 'string',
+		},
+		customButtonBackgroundColor: {
+			type: 'string',
+		},
+		buttonGradient: {
+			type: 'string',
+		},
+		customButtonGradient: {
 			type: 'string',
 		},
 		textColor: {
 			type: 'string',
 		},
-		customBackgroundColor: {
-			type: 'string',
-		},
 		customTextColor: {
 			type: 'string',
 		},
-		gradient: {
-			type: 'string',
+		fontSize: {
+			type: 'number',
 		},
-		customGradient: {
-			type: 'string',
+		customFontSize: {
+			type: 'number',
 		},
 		borderRadius: {
 			type: 'number',
@@ -80,12 +96,6 @@ export const settings = {
 		},
 		customBorderColor: {
 			type: 'string',
-		},
-		fontSize: {
-			type: 'number',
-		},
-		customFontSize: {
-			type: 'number',
 		},
 	},
 	edit,

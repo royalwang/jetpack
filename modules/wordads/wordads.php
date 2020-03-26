@@ -166,7 +166,7 @@ class WordAds {
 
 		// Include California Privacy Act related features if enabled.
 		if ( $this->params->options['wordads_ccpa_enabled'] ) {
-			WordAds_California_Privacy::init( $this->params->options['wordads_ccpa_not_applicable'] );
+			WordAds_California_Privacy::init();
 		}
 
 		if ( '/ads.txt' === $_SERVER['REQUEST_URI'] ) {

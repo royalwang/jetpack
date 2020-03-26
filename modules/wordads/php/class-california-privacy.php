@@ -13,16 +13,7 @@ use Automattic\Jetpack\Assets;
  */
 class WordAds_California_Privacy {
 
-	public static function init( $not_applicable = false ) {
-
-		if ( $not_applicable ) {
-			if ( ! $_COOKIE[ self::get_cookie_name() ] ) {
-				self::set_not_applicable_cookie();
-			}
-
-			return;
-		}
-
+	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
 		self::init_shortcode();
@@ -129,10 +120,6 @@ class WordAds_California_Privacy {
 		return self::build_iab_privacy_string( false );
 	}
 
-	private static function get_not_applicable_cookie_string() {
-		return '1---';
-	}
-
 	/**
 	 * Sets a cookie in the HTTP response to opt-out visitors from data sales.
 	 *
@@ -153,12 +140,6 @@ class WordAds_California_Privacy {
 		$cookie_domain = '.wordpress.com' === substr( $_SERVER['HTTP_HOST'], -strlen( '.wordpress.com' ) ) ? '.wordpress.com' : '.' . $_SERVER['HTTP_HOST'];
 
 		return setcookie( self::get_cookie_name(), self::get_optin_cookie_string(), time() + YEAR_IN_SECONDS, '/', $cookie_domain );
-	}
-
-	private static function set_not_applicable_cookie() {
-		$cookie_domain = '.wordpress.com' === substr( $_SERVER['HTTP_HOST'], -strlen( '.wordpress.com' ) ) ? '.wordpress.com' : '.' . $_SERVER['HTTP_HOST'];
-
-		return setcookie( self::get_cookie_name(), self::get_not_applicable_cookie_string(), time() + WEEK_IN_SECONDS, '/', $cookie_domain );
 	}
 
 	public static function handle_optout_request() {

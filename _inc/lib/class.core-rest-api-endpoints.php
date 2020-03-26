@@ -2195,13 +2195,6 @@ class Jetpack_Core_Json_Api_Endpoints {
 				'validate_callback'  => __CLASS__ . '::validate_boolean',
 				'jp_group'           => 'wordads',
 			),
-			'wordads_ccpa_not_applicable' => array(
-				'description'        => esc_html__( 'California Consumer Privacy Act does not apply to this site', 'jetpack' ),
-				'type'               => 'boolean',
-				'default'            => 0,
-				'validate_callback'  => __CLASS__ . '::validate_boolean',
-				'jp_group'           => 'wordads',
-			),
 			'wordads_ccpa_privacy_policy_url' => array(
 				'description'        => esc_html__( 'Privacy Policy URL', 'jetpack' ),
 				'type'               => 'string',

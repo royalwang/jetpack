@@ -66,10 +66,6 @@ export const Ads = withModuleSettingsFormHelpers(
 			);
 			const wordads_custom_adstxt = this.props.getOptionValue( 'wordads_custom_adstxt', 'wordads' );
 			const wordads_ccpa_enabled = this.props.getOptionValue( 'wordads_ccpa_enabled', 'wordads' );
-			const wordads_ccpa_not_applicable = this.props.getOptionValue(
-				'wordads_ccpa_not_applicable',
-				'wordads'
-			);
 			const wordads_ccpa_privacy_policy_url = this.props.getOptionValue(
 				'wordads_ccpa_privacy_policy_url',
 				'wordads'
@@ -307,32 +303,6 @@ export const Ads = withModuleSettingsFormHelpers(
 										'Adds a link to your privacy policy to the bottom of the CCPA notice popup (optional).'
 									) }
 								</span>
-							</FormFieldset>
-						) }
-						{ wordads_ccpa_enabled && (
-							<FormFieldset>
-								<FormLegend>{ __( 'CCPA Opt-out' ) }</FormLegend>
-								<CompactFormToggle
-									checked={ wordads_ccpa_not_applicable }
-									disabled={
-										! isAdsActive ||
-										unavailableInDevMode ||
-										! wordads_ccpa_enabled ||
-										this.props.isSavingAnyOption( [ 'wordads', 'wordads_ccpa_not_applicable' ] )
-									}
-									onChange={ this.handleChange( 'wordads_ccpa_not_applicable' ) }
-								>
-									<span className="jp-form-toggle-explanation">
-										{ __(
-											'I attest this site does not require user consent because of exceptions granted in the California Consumer Privacy Act.'
-										) }
-									</span>
-									<small className="jp-form-setting-explanation">
-										{ __(
-											'This will disable CCPA consent & opt-out features and allow targeted advertising for all California traffic.'
-										) }
-									</small>
-								</CompactFormToggle>
 							</FormFieldset>
 						) }
 					</SettingsGroup>

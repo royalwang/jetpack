@@ -25,7 +25,6 @@ class WordAds_Params {
 			'wordads_custom_adstxt'           => '',
 			'wordads_custom_adstxt_enabled'   => false,
 			'wordads_ccpa_enabled'            => false,
-			'wordads_ccpa_not_applicable'     => false,
 			'wordads_ccpa_privacy_policy_url' => '',
 		);
 

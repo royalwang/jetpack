@@ -6,13 +6,18 @@ use Automattic\Jetpack\Assets;
  * Class WordAds_California_Privacy
  *
  * Implementation of [California Consumer Privacy Act] (https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&division=3.&title=1.81.5.&part=4.&chapter=&article=) as applicable to WordAds.
- * This includes adding a Do Not Sell My Personal Information link to all pages that display ads and the wordpress.com homepage, as well as handling opt-out cookies.
- *
- * Client side geo-detection is used to limit the features to only visitors with a California IP address. This avoids issues with Batcache.
+ * Includes:
+ * - Do Not Sell My Personal Information shortcode and widget.
+ * - Modal notice to toggle opt-in/opt-out.
+ * - Cookie handling. Implements IAB usprivacy cookie specifications.
+ * - Client side geo-detection of California visitors by IP address. Avoids issues with page caching.
  *
  */
 class WordAds_California_Privacy {
 
+	/**
+	 * Initializes required scripts and shortcode.
+	 */
 	public static function init() {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
@@ -47,6 +52,9 @@ class WordAds_California_Privacy {
 		);
 	}
 
+	/**
+	 * Initializes handlers for admin AJAX.
+	 */
 	public static function init_ajax_actions() {
 		add_action( 'wp_ajax_privacy_optout', array( __CLASS__, 'handle_optout_request' ) );
 		add_action( 'wp_ajax_nopriv_privacy_optout', array( __CLASS__, 'handle_optout_request' ) );
@@ -55,10 +63,21 @@ class WordAds_California_Privacy {
 		add_action( 'wp_ajax_nopriv_privacy_optout_markup', array( __CLASS__, 'handle_optout_markup' ) );
 	}
 
+	/**
+	 * Initializes the [ccpa-do-not-sell-link] shortcode.
+	 */
 	private static function init_shortcode() {
 		add_shortcode( 'ccpa-do-not-sell-link', array( __CLASS__, 'do_not_sell_link_shortcode' ) );
 	}
 
+	/**
+	 * Outputs [ccpa-do-not-sell-link] shortcode markup.
+	 *
+	 * @param array  $attributes The shortcode attributes.
+	 * @param string $content The shortcode content.
+	 *
+	 * @return string The generated shortcode markup.
+	 */
 	public static function do_not_sell_link_shortcode( $attributes, $content ) {
 		return '<a href="#" class="ccpa-do-not-sell" style="display: none;">' . self::get_optout_link_text() . '</a>';
 	}
@@ -77,7 +96,7 @@ class WordAds_California_Privacy {
 	 * Builds the value of the opt-out cookie.
 	 * Format matches spec of [IAB U.S. Privacy String](https://iabtechlab.com/wp-content/uploads/2019/11/U.S.-Privacy-String-v1.0-IAB-Tech-Lab.pdf).
 	 *
-	 * @param $optout bool True if setting an opt-out cookie.
+	 * @param bool $optout True if setting an opt-out cookie.
 	 *
 	 * @return string The value to be stored in the opt-out cookie.
 	 */
@@ -142,6 +161,9 @@ class WordAds_California_Privacy {
 		return setcookie( self::get_cookie_name(), self::get_optin_cookie_string(), time() + YEAR_IN_SECONDS, '/', $cookie_domain );
 	}
 
+	/**
+	 * Handler for opt-in/opt-out AJAX request.
+	 */
 	public static function handle_optout_request() {
 		check_ajax_referer( 'ccpa_optout', 'security' );
 		header( 'Content-Type: text/plain; charset=utf-8' );
@@ -152,6 +174,9 @@ class WordAds_California_Privacy {
 		wp_send_json_success( $optout );
 	}
 
+	/**
+	 * Handler for modal popup notice markup.
+	 */
 	public static function handle_optout_markup() {
 		header( 'Content-Type: text/html; charset=utf-8' );
 		$policy_url = get_option( 'wordads_ccpa_privacy_policy_url' );

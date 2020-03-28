@@ -67,6 +67,7 @@ export const settings = {
 		},
 		buttonBackgroundColor: {
 			type: 'string',
+			default: 'accent',
 		},
 		customButtonBackgroundColor: {
 			type: 'string',
@@ -79,6 +80,7 @@ export const settings = {
 		},
 		textColor: {
 			type: 'string',
+			default: 'background',
 		},
 		customTextColor: {
 			type: 'string',
@@ -88,7 +90,7 @@ export const settings = {
 		},
 		customFontSize: {
 			type: 'number',
-			default: 20,
+			default: 18,
 		},
 		borderRadius: {
 			type: 'number',

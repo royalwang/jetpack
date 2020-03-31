@@ -321,7 +321,7 @@ class Jetpack_Subscriptions_Widget extends WP_Widget {
 					}
 					if ( $show_subscribers_total && $subscribers_total ) {
 						?>
-						<div class="subscribe-count">
+						<div class="jetpack-subscribe-count">
 							<p>
 							<?php
 							/* translators: %s: number of folks following the blog */
@@ -339,7 +339,7 @@ class Jetpack_Subscriptions_Widget extends WP_Widget {
 					}
 					if ( $show_subscribers_total && $subscribers_total ) {
 						?>
-						<div class="subscribe-count">
+						<div class="jetpack-subscribe-count">
 							<p>
 							<?php
 							/* translators: %s: number of folks following the blog */
@@ -414,7 +414,7 @@ class Jetpack_Subscriptions_Widget extends WP_Widget {
 
 				if ( $show_subscribers_total && 0 < $subscribers_total['value'] ) {
 					?>
-					<div class="subscribe-count">
+					<div class="jetpack-subscribe-count">
 						<p>
 						<?php
 						/* translators: %s: number of folks following the blog */

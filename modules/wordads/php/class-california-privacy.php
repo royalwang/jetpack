@@ -147,7 +147,7 @@ class WordAds_California_Privacy {
 	private static function set_optout_cookie() {
 		$cookie_domain = '.wordpress.com' === substr( $_SERVER['HTTP_HOST'], -strlen( '.wordpress.com' ) ) ? '.wordpress.com' : '.' . $_SERVER['HTTP_HOST'];
 
-		return setcookie( self::get_cookie_name(), self::get_optout_cookie_string(), time() + YEAR_IN_SECONDS, '/', $cookie_domain );
+		return setcookie( self::get_cookie_name(), self::get_optout_cookie_string(), time() + ( 5 * YEAR_IN_SECONDS ), '/', $cookie_domain );
 	}
 
 	/**

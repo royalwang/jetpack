@@ -30,6 +30,7 @@ import { addQueryArgs } from '@wordpress/url';
 import PopupMonitor from 'lib/popup-monitor';
 import defaultAttributes from './attributes';
 import { getValidatedAttributes } from '../../shared/get-validated-attributes';
+import ImageFade from '../../shared/components/image-fade';
 import './editor.scss';
 
 const InstagramGalleryEdit = props => {
@@ -168,7 +169,8 @@ const InstagramGalleryEdit = props => {
 							key={ image.title || image.link }
 							style={ photoStyle }
 						>
-							<img alt={ image.title || image.url } src={ image.url } />
+							<ImageFade  src={image.url} opacityTransition="1" photoStyle={ photoStyle }/>
+							
 						</span>
 					) ) }
 					{ isLoadingGallery && count > images.length && (

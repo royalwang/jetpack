@@ -22,10 +22,7 @@ export const defaultErrorHandler = async ( error, name ) => {
 	if ( CI ) {
 		const filePath = await takeScreenshot( currentBlock, name );
 		logger.slack( { type: 'failure', message: { block: currentBlock, name, error } } );
-		// await sendFailedTestMessageToSlack( { type: 'message', block: currentBlock, name, error } );
 		logger.slack( { type: 'file', message: filePath } );
-
-		// await sendFileToSlack( filePath );
 		await logDebugLog();
 	}
 

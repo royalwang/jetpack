@@ -8,6 +8,7 @@ import { wrap } from 'lodash';
 import { sendFailedTestScreenshotToSlack, sendFailedTestMessageToSlack } from './reporters/slack';
 import { takeScreenshot } from './reporters/screenshot';
 import { logHTML, logDebugLog } from './page-helper';
+import logger from './logger';
 
 /**
  * Override the test case method so we can take screenshots of assertion failures.
@@ -72,7 +73,7 @@ global.it = async ( name, func ) => {
 
 jasmine.getEnv().addReporter( {
 	specStarted( result ) {
-		console.log( `Spec name: ${ result.fullName }, description: ${ result.description }` );
+		logger.info( `Spec name: ${ result.fullName }, description: ${ result.description }` );
 	},
 } );
 

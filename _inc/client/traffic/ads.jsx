@@ -318,6 +318,11 @@ export const Ads = withModuleSettingsFormHelpers(
 						{ ! isSubDirSite && (
 							<CompactFormToggle
 								checked={ wordads_custom_adstxt_enabled }
+								disabled={
+									! isAdsActive ||
+									unavailableInDevMode ||
+									this.props.isSavingAnyOption( [ 'wordads', 'wordads_custom_adstxt_enabled' ] )
+								}
 								onChange={ this.handleChange( 'wordads_custom_adstxt_enabled' ) }
 							>
 								<span className="jp-form-toggle-explanation">

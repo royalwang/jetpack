@@ -41,7 +41,7 @@
 	font-weight: normal;
 	font-size: 14px;
 }
-
+.plan-section__single-products,
 .plans-section__single-product {
 	display: flex;
 	justify-content: center;
@@ -91,7 +91,7 @@
 }
 
 .single-product-search__upgrade-button-container,
-.single-product-backup__upgrade-button-container {
+.single-product__upgrade-button-container {
 	text-align: center;
 	margin-top: 24px;
 	margin-bottom: 8px;

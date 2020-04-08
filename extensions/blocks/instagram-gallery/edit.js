@@ -169,7 +169,7 @@ const InstagramGalleryEdit = props => {
 							key={ image.title || image.link }
 							style={ photoStyle }
 						>
-							<ImageTransition  src={image.url} attributes={ attributes } />
+							<ImageTransition src={ image.url } attributes={ attributes } />
 						</span>
 					) ) }
 					{ isLoadingGallery && count > images.length && (

@@ -6,9 +6,5 @@
 module.exports = {
 	preset: 'jest-puppeteer',
 	setupFiles: [ '<rootDir>/lib/setup.js' ],
-	setupFilesAfterEnv: [
-		'<rootDir>/lib/setup-env.js',
-		'<rootDir>/lib/jest.test.failure.js',
-		'expect-puppeteer',
-	],
+	setupFilesAfterEnv: [ '<rootDir>/lib/setup-env.js', 'expect-puppeteer' ],
 };

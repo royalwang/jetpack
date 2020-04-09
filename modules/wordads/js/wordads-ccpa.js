@@ -198,6 +198,12 @@
 
 	// Initialization.
 	document.addEventListener( 'DOMContentLoaded', function() {
+		// Check for override.
+		if ( 1 === parseInt( ccpaSettings.forceApplies ) ) {
+			doNotSellCallback();
+			return;
+		}
+
 		// CCPA consent value storage.
 		var usprivacyCookie = cookieLib.getItem( 'usprivacy' );
 

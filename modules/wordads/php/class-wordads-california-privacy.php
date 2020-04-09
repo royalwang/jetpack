@@ -11,7 +11,6 @@ use Automattic\Jetpack\Assets;
  * - Modal notice to toggle opt-in/opt-out.
  * - Cookie handling. Implements IAB usprivacy cookie specifications.
  * - Client side geo-detection of California visitors by IP address. Avoids issues with page caching.
- *
  */
 class WordAds_California_Privacy {
 
@@ -19,8 +18,11 @@ class WordAds_California_Privacy {
 	 * Initializes required scripts and shortcode.
 	 */
 	public static function init() {
+
+		// Initialize required scripts.
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 
+		// Initialize shortcode.
 		self::init_shortcode();
 	}
 
@@ -48,6 +50,7 @@ class WordAds_California_Privacy {
 				'ccpaCssUrl'               => esc_url( WORDADS_URL ) . 'css/wordads-ccpa.min.css',
 				'ajaxUrl'                  => admin_url( 'admin-ajax.php' ),
 				'ajaxNonce'                => wp_create_nonce( 'ccpa_optout' ),
+				'forceApplies'             => esc_js( is_user_logged_in() && current_user_can( 'manage_options' ) ),
 			)
 		);
 	}
@@ -102,10 +105,10 @@ class WordAds_California_Privacy {
 	 */
 	private static function build_iab_privacy_string( $optout ) {
 		$values = array(
-			'1', // Specification version
-			'Y', // Explicit notice to opt-out provided
-			$optout ? 'Y' : 'N', // Opt-out of data sale
-			'N', // Signatory to IAB Limited Service Provider Agreement
+			'1', // Specification version.
+			'Y', // Explicit notice to opt-out provided.
+			$optout ? 'Y' : 'N', // Opt-out of data sale.
+			'N', // Signatory to IAB Limited Service Provider Agreement.
 		);
 
 		return join( $values );

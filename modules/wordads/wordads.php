@@ -10,7 +10,7 @@ define( 'WORDADS_API_TEST_ID2', '114160' );
 require_once WORDADS_ROOT . '/php/widgets.php';
 require_once WORDADS_ROOT . '/php/api.php';
 require_once WORDADS_ROOT . '/php/cron.php';
-require_once WORDADS_ROOT . '/php/class-california-privacy.php';
+require_once WORDADS_ROOT . '/php/class-wordads-california-privacy.php';
 
 class WordAds {
 

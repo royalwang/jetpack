@@ -8,7 +8,7 @@ import { connectThroughWPAdminIfNeeded } from '../lib/flows/jetpack-connect';
 import { resetWordpressInstall, getNgrokSiteUrl, activateModule } from '../lib/utils-helper';
 import SimplePaymentBlock from '../lib/blocks/simple-payments';
 import WordAdsBlock from '../lib/blocks/word-ads';
-import { catchBeforeAll } from '../lib/jest.test.failure';
+import { catchBeforeAll } from '../lib/setup-env';
 
 describe( 'Paid blocks', () => {
 	catchBeforeAll( async () => {

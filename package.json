@@ -226,10 +226,10 @@
 	"resolutions": {
 		"**/webpack/acorn": "^6.4.1",
 		"**/acorn-globals/acorn": "^6.4.1",
-		"**/sharkdown/minimist": "^0.2.1",
-		"**/mkdirp/minimist": "^0.2.1",
-		"**/optimist/minimist": "^0.2.1",
-		"**/mapbox-gl/minimist": "^0.2.1",
+		"**/sharkdown/minimist": "^1.0.0",
+		"**/mkdirp/minimist": "^1.0.0",
+		"**/optimist/minimist": "^1.0.0",
+		"**/mapbox-gl/minimist": "^1.0.0",
 		"**/@mapbox/geojson-rewind/minimist": "^1.2.3"
 	}
 }
